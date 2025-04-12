@@ -17,6 +17,7 @@ namespace gh_quest
     {
 
         RectangleF _TitleBounds = new RectangleF();
+        PointF _IconPoint = new PointF();
 
         RectangleF _LaunchButtonBounds = new RectangleF();
         Action _LaunchButtonClickAction;
@@ -49,6 +50,7 @@ namespace gh_quest
             float edgeOffset = 3.0f;
             float buttonHeight = 25.0f;
             _TitleBounds = new RectangleF(Bounds.X + edgeOffset, Bounds.Top + componentHeight/2 - buttonHeight/2, Bounds.Width - 2 * edgeOffset, buttonHeight);
+            _IconPoint = new PointF((Bounds.X + edgeOffset), (Bounds.Top + componentHeight/2 - buttonHeight));
             
             //Set Analyze Button
             _LaunchButtonBounds = new RectangleF(Bounds.X + edgeOffset, Bounds.Bottom + edgeOffset, Bounds.Width - 2 * edgeOffset, buttonHeight);
@@ -72,6 +74,9 @@ namespace gh_quest
                 var capsule = GH_Capsule.CreateCapsule(Bounds, GH_Palette.Pink);
                 capsule.Render(graphics, Selected, Owner.Locked, false);
                 capsule.Dispose();
+
+                //Bitmap bitmap = new Bitmap("C:\\Users\\jonathan.wong\\gh-quest\\Icon\\GH_Quest_Icon_Transparent_24");
+                //graphics.DrawImage(bitmap, _IconPoint);
 
                 //Colors and Fonts
                 Font buttonFont = new Font(GH_FontServer.Standard.FontFamily, GH_FontServer.Standard.Size / GH_GraphicsUtil.UiScale, FontStyle.Regular);
