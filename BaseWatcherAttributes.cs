@@ -18,7 +18,7 @@ namespace gh_quest
 
         RectangleF _TitleBounds = new RectangleF();
         PointF _IconPoint = new PointF();
-        Image _IconBitmap;
+        Image _IconBitmap = null;
 
         RectangleF _LaunchButtonBounds = new RectangleF();
         Action _LaunchButtonClickAction;
@@ -49,9 +49,9 @@ namespace gh_quest
             Bounds = new RectangleF(Bounds.X - componentWidth/2, Bounds.Y, componentWidth, componentHeight);
 
             float edgeOffset = 3.0f;
-            float buttonHeight = 25.0f;
+            float buttonHeight = 20.0f;
             _TitleBounds = new RectangleF(Bounds.X + edgeOffset, Bounds.Top + componentHeight/2 - buttonHeight/2, Bounds.Width - 2 * edgeOffset, buttonHeight);
-            _IconPoint = new PointF((Bounds.X + edgeOffset), (Bounds.Top + componentHeight/2 - buttonHeight));
+            _IconPoint = new PointF(Bounds.X + edgeOffset, Bounds.Top + componentHeight/2 - buttonHeight);
             
             //Set Analyze Button
             _LaunchButtonBounds = new RectangleF(Bounds.X + edgeOffset, Bounds.Bottom + edgeOffset, Bounds.Width - 2 * edgeOffset, buttonHeight);
@@ -76,7 +76,10 @@ namespace gh_quest
                 capsule.Render(graphics, Selected, Owner.Locked, false);
                 capsule.Dispose();
 
-                //graphics.DrawImage(bitmap, _IconPoint);
+                if(_IconBitmap != null)
+                {
+                    graphics.DrawImage(_IconBitmap, _IconPoint);
+                }
 
                 //Colors and Fonts
                 Font buttonFont = new Font(GH_FontServer.Standard.FontFamily, GH_FontServer.Standard.Size / GH_GraphicsUtil.UiScale, FontStyle.Regular);
@@ -93,6 +96,8 @@ namespace gh_quest
                 Color edgeHover = Color.Gray;
                 Color edgeClick = Color.White;
 
+                int cornerRadius = 3;
+
 
                 //Render Title Text
                 graphics.DrawString("GH Quest", titleFont, new SolidBrush(Color.Black), _TitleBounds, GH_TextRenderingConstants.CenterCenter);
@@ -100,7 +105,7 @@ namespace gh_quest
 
 
                 //Render Button
-                GraphicsPath button = RoundedRect(_LaunchButtonBounds, 2);
+                GraphicsPath button = RoundedRect(_LaunchButtonBounds, cornerRadius);
                 Brush buttonColor = _LaunchMouseHover ? hoverColor : normalColor;
                 graphics.FillPath(_LaunchMouseDown ? clickedColor : buttonColor, button);
 
@@ -110,7 +115,7 @@ namespace gh_quest
                 graphics.DrawPath(pen, button);
 
                 //Render Overlay
-                GraphicsPath overlay = RoundedRect(_LaunchButtonBounds, 2, true);
+                GraphicsPath overlay = RoundedRect(_LaunchButtonBounds, cornerRadius, true);
                 graphics.FillPath(new SolidBrush(Color.FromArgb(_LaunchMouseDown ? 0 : _LaunchMouseHover ? 40 : 60, 255, 255, 255)), overlay);
 
                 //Render Button Text
@@ -119,7 +124,7 @@ namespace gh_quest
 
 
                 //Render Button
-                GraphicsPath dropdown = RoundedRect(_SelectionDropdownBounds, 2);
+                GraphicsPath dropdown = RoundedRect(_SelectionDropdownBounds, cornerRadius);
                 Brush dropdownColor = _SelectionDropdownMouseDown ? hoverColor : normalColor;
                 graphics.FillPath(_SelectionDropdownMouseDown ? clickedColor : dropdownColor, dropdown);
 
@@ -129,7 +134,7 @@ namespace gh_quest
                 graphics.DrawPath(dropdownPen, dropdown);
 
                 //Render Overlay
-                GraphicsPath dropdownOverlay = RoundedRect(_SelectionDropdownBounds, 2, true);
+                GraphicsPath dropdownOverlay = RoundedRect(_SelectionDropdownBounds, cornerRadius, true);
                 graphics.FillPath(new SolidBrush(Color.FromArgb(_SelectionDropdownMouseDown ? 0 : _SelectionDropdownMouseHover ? 40 : 60, 255, 255, 255)), dropdownOverlay);
 
                 //Render Button Text
@@ -243,41 +248,36 @@ namespace gh_quest
 
         public static GraphicsPath RoundedRect(RectangleF bounds, int radius, bool overlay = false)
         {
-            RectangleF b = new RectangleF(bounds.X, bounds.Y, bounds.Width, bounds.Height);
+            RectangleF rectangleBounds = new RectangleF(bounds.X, bounds.Y, bounds.Width, bounds.Height);
             int diameter = radius * 2;
             Size size = new Size(diameter, diameter);
-            RectangleF arc = new RectangleF(b.Location, size);
+            RectangleF arc = new RectangleF(rectangleBounds.Location, size);
             GraphicsPath path = new GraphicsPath();
             
-            if (overlay)
-                b.Height = diameter;
+            if (overlay){rectangleBounds.Height = diameter;}
 
             if (radius == 0)
             {
-                path.AddRectangle(b);
+                path.AddRectangle(rectangleBounds);
                 return path;
             }
 
-            // top left arc  
-            path.AddArc(arc, 180, 90);
-
-            // top right arc  
-            arc.X = b.Right - diameter;
+            path.AddArc(arc, 180, 90);  //NW Arc
+            
+            arc.X = rectangleBounds.Right - diameter; //NE Arc
             path.AddArc(arc, 270, 90);
 
             if (!overlay)
             {
-                // bottom right arc  
-                arc.Y = b.Bottom - diameter;
+                arc.Y = rectangleBounds.Bottom - diameter; //SW Arc
                 path.AddArc(arc, 0, 90);
 
-                // bottom left arc 
-                arc.X = b.Left;
+                arc.X = rectangleBounds.Left; //SE Arc
                 path.AddArc(arc, 90, 90);
             }
             else
             {
-                path.AddLine(new PointF(b.X + b.Width, b.Y + b.Height), new PointF(b.X, b.Y + b.Height));
+                path.AddLine(new PointF(rectangleBounds.X + rectangleBounds.Width, rectangleBounds.Y + rectangleBounds.Height), new PointF(rectangleBounds.X, rectangleBounds.Y + rectangleBounds.Height));
             }
 
             path.CloseFigure();
