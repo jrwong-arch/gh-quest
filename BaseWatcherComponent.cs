@@ -98,7 +98,7 @@ namespace gh_quest
 
         public void SelectLesson()
         {
-            
+
         }
 
         public void LaunchGHQuest()
@@ -171,13 +171,14 @@ namespace gh_quest
             // Send an initial message to the client
 
             GraphSchema userState = new GraphSchema(GetActiveDocument());
+            var userScore = ScoreSolution.ScoreGraph(userState);
 
             byte[] jsonBytes = Convert.FromBase64String(_ActiveTutorial._Properties._TargetGraph);
             string jsonString = Encoding.UTF8.GetString(jsonBytes);
 
             GraphSchema goalState = JsonConvert.DeserializeObject<GraphSchema>(jsonString);
 
-            var questState = new QuestState(userState, goalState);
+            var questState = new QuestState(userState, goalState, userScore);
             byte[] initialBuffer = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(questState));
             await webSocket.SendAsync(new ArraySegment<byte>(initialBuffer), WebSocketMessageType.Text, true, CancellationToken.None);
 
