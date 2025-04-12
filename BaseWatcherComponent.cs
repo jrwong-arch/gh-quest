@@ -15,6 +15,7 @@ using Grasshopper.Kernel;
 using Rhino;
 using Rhino.Geometry;
 using Newtonsoft.Json;
+using gh_quest.CustomClasses;
 
 namespace gh_quest
 {
@@ -25,6 +26,7 @@ namespace gh_quest
         public string _ActiveScriptJSON;
         public string _TutorialJSON;
 
+        public TutorialClass _ActiveTutorial { get; set; }
 
 
         //************************** CONSTRUCTOR **************************//
@@ -38,7 +40,7 @@ namespace gh_quest
 
         public override void CreateAttributes()
         {
-            m_attributes = new BaseWatcherAttributes(this, LaunchGHQuest);
+            m_attributes = new BaseWatcherAttributes(this, LaunchGHQuest, SelectLesson);
         }
 
         public override bool Write(GH_IWriter writer)
@@ -94,6 +96,11 @@ namespace gh_quest
 
         //************************** CUSTOM METHODS **************************//
 
+        public void SelectLesson()
+        {
+            
+        }
+
         public void LaunchGHQuest()
         {
             OpenWebPanel();
@@ -108,13 +115,13 @@ namespace gh_quest
             var webView = new WebView
             {
                 Url = new Uri("http://localhost:5173/"), // Replace with your desired URL
-                Size = new Eto.Drawing.Size(800, 600)
+                Size = new Eto.Drawing.Size(1200, 1000)
             };
 
             var dialog = new Dialog
             {
                 Title = "Web Panel",
-                ClientSize = new Eto.Drawing.Size(800, 600),
+                ClientSize = new Eto.Drawing.Size(1200, 1000),
                 Content = webView
             };
 
@@ -165,7 +172,12 @@ namespace gh_quest
 
             GraphSchema userState = new GraphSchema(GetActiveDocument());
 
-            var questState = new QuestState(userState, userState);
+            byte[] jsonBytes = Convert.FromBase64String(_ActiveTutorial._Properties._TargetGraph);
+            string jsonString = Encoding.UTF8.GetString(jsonBytes);
+
+            GraphSchema goalState = JsonConvert.DeserializeObject<GraphSchema>(jsonString);
+
+            var questState = new QuestState(userState, goalState);
             byte[] initialBuffer = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(questState));
             await webSocket.SendAsync(new ArraySegment<byte>(initialBuffer), WebSocketMessageType.Text, true, CancellationToken.None);
 

@@ -17,16 +17,23 @@ namespace gh_quest
     {
 
         RectangleF _TitleBounds = new RectangleF();
-        RectangleF _ButtonBounds = new RectangleF();
-        Action _ButtonClickAction;
-        string _ButtonText = "Launch";
-        bool _MouseDown = false;
-        bool _MouseHover = false;
+
+        RectangleF _LaunchButtonBounds = new RectangleF();
+        Action _LaunchButtonClickAction;
+        bool _LaunchMouseDown = false;
+        bool _LaunchMouseHover = false;
 
 
-        public BaseWatcherAttributes(IGH_Component component, Action buttonAction) : base(component)
+        RectangleF _SelectionDropdownBounds = new RectangleF();
+        Action _SelectionDropdownClickAction;
+        bool _SelectionDropdownMouseDown = false;
+        bool _SelectionDropdownMouseHover = false;
+
+
+        public BaseWatcherAttributes(IGH_Component component, Action launchAction, Action selectionAction) : base(component)
         {
-            _ButtonClickAction = buttonAction;
+            _LaunchButtonClickAction = launchAction;
+            _SelectionDropdownClickAction = selectionAction;
         }
 
 
@@ -40,10 +47,18 @@ namespace gh_quest
             Bounds = new RectangleF(Bounds.X - componentWidth/2, Bounds.Y, componentWidth, componentHeight);
 
             float edgeOffset = 3.0f;
-            float buttonHeight = 50.0f;
-            _TitleBounds = new RectangleF(Bounds.X + edgeOffset, Bounds.Top + edgeOffset, Bounds.Width - 2 * edgeOffset, buttonHeight);
-            _ButtonBounds = new RectangleF(Bounds.X + edgeOffset, Bounds.Bottom + edgeOffset, Bounds.Width - 2 * edgeOffset, buttonHeight);
+            float buttonHeight = 25.0f;
+            _TitleBounds = new RectangleF(Bounds.X + edgeOffset, Bounds.Top + componentHeight/2 - buttonHeight/2, Bounds.Width - 2 * edgeOffset, buttonHeight);
+            
+            //Set Analyze Button
+            _LaunchButtonBounds = new RectangleF(Bounds.X + edgeOffset, Bounds.Bottom + edgeOffset, Bounds.Width - 2 * edgeOffset, buttonHeight);
             Bounds = new RectangleF(Bounds.X, Bounds.Y, Bounds.Width, Bounds.Height + buttonHeight + (2 * edgeOffset));
+
+            
+            //Set Selection Dropdown
+            _SelectionDropdownBounds = new RectangleF(Bounds.X + edgeOffset, Bounds.Bottom + edgeOffset, Bounds.Width - 2 * edgeOffset, buttonHeight);
+            Bounds = new RectangleF(Bounds.X, Bounds.Y, Bounds.Width, Bounds.Height + buttonHeight + (2 * edgeOffset));
+
         }
 
 
@@ -67,6 +82,7 @@ namespace gh_quest
                 Brush normalColor = new SolidBrush(Color.FromArgb(255,60,60,60));
                 Brush hoverColor = new SolidBrush(Color.FromArgb(255,120,120,120));
                 Brush clickedColor = new SolidBrush(Color.FromArgb(255,180,180,180));
+                Brush backgroundColor = new SolidBrush(Color.LightGray);
 
                 Color edgeColor = Color.Black;
                 Color edgeHover = Color.Gray;
@@ -77,24 +93,44 @@ namespace gh_quest
                 graphics.DrawString("GH Quest", titleFont, new SolidBrush(Color.Black), _TitleBounds, GH_TextRenderingConstants.CenterCenter);
 
 
+
                 //Render Button
-                GraphicsPath button = RoundedRect(_ButtonBounds, 2);
-                Brush buttonColor = _MouseHover ? hoverColor : normalColor;
-                graphics.FillPath(_MouseDown ? clickedColor : buttonColor, button);
+                GraphicsPath button = RoundedRect(_LaunchButtonBounds, 2);
+                Brush buttonColor = _LaunchMouseHover ? hoverColor : normalColor;
+                graphics.FillPath(_LaunchMouseDown ? clickedColor : buttonColor, button);
 
                 //Render Button Edge
-                Color edgeColorSelection = _MouseHover ? edgeHover : edgeColor;
-                Pen pen = new Pen(_MouseDown ? edgeClick : edgeColorSelection) {Width = _MouseDown ? 0.8f : 0.5f};
+                Color edgeColorSelection = _LaunchMouseHover ? edgeHover : edgeColor;
+                Pen pen = new Pen(_LaunchMouseDown ? edgeClick : edgeColorSelection) {Width = _LaunchMouseDown ? 0.8f : 0.5f};
                 graphics.DrawPath(pen, button);
 
                 //Render Overlay
-                GraphicsPath overlay = RoundedRect(_ButtonBounds, 2, true);
-                graphics.FillPath(new SolidBrush(Color.FromArgb(_MouseDown ? 0 : _MouseHover ? 40 : 60, 255, 255, 255)), overlay);
+                GraphicsPath overlay = RoundedRect(_LaunchButtonBounds, 2, true);
+                graphics.FillPath(new SolidBrush(Color.FromArgb(_LaunchMouseDown ? 0 : _LaunchMouseHover ? 40 : 60, 255, 255, 255)), overlay);
 
                 //Render Button Text
-                graphics.DrawString(_ButtonText, buttonFont, new SolidBrush(Color.White), _ButtonBounds, GH_TextRenderingConstants.CenterCenter);
+                graphics.DrawString("Analyze", buttonFont, new SolidBrush(Color.White), _LaunchButtonBounds, GH_TextRenderingConstants.CenterCenter);
 
+
+
+                //Render Button
+                GraphicsPath dropdown = RoundedRect(_SelectionDropdownBounds, 2);
+                Brush dropdownColor = _SelectionDropdownMouseDown ? hoverColor : normalColor;
+                graphics.FillPath(_SelectionDropdownMouseDown ? clickedColor : dropdownColor, dropdown);
+
+                //Render Button Edge
+                Color dropdownEdgeColorSelection = _SelectionDropdownMouseHover ? edgeHover : edgeColor;
+                Pen dropdownPen = new Pen(_SelectionDropdownMouseDown ? edgeClick : dropdownEdgeColorSelection) {Width = _SelectionDropdownMouseDown ? 0.8f : 0.5f};
+                graphics.DrawPath(dropdownPen, dropdown);
+
+                //Render Overlay
+                GraphicsPath dropdownOverlay = RoundedRect(_SelectionDropdownBounds, 2, true);
+                graphics.FillPath(new SolidBrush(Color.FromArgb(_SelectionDropdownMouseDown ? 0 : _SelectionDropdownMouseHover ? 40 : 60, 255, 255, 255)), dropdownOverlay);
+
+                //Render Button Text
+                graphics.DrawString("Select Lesson", buttonFont, new SolidBrush(Color.White), _SelectionDropdownBounds, GH_TextRenderingConstants.CenterCenter);
             }
+
         }
 
 
@@ -103,13 +139,22 @@ namespace gh_quest
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
-                RectangleF rec = _ButtonBounds;
-                if (rec.Contains(e.CanvasLocation))
+                RectangleF buttonRectangle = _LaunchButtonBounds;
+                if (buttonRectangle.Contains(e.CanvasLocation))
                 {
-                    _MouseDown = true;
+                    _LaunchMouseDown = true;
                     Owner.OnDisplayExpired(false);
                     return GH_ObjectResponse.Capture;
                 }
+
+                RectangleF dropdownRectangle = _SelectionDropdownBounds;
+                if (dropdownRectangle.Contains(e.CanvasLocation))
+                {
+                    _SelectionDropdownMouseDown = true;
+                    Owner.OnDisplayExpired(false);
+                    return GH_ObjectResponse.Capture;
+                }
+
             }
             return base.RespondToMouseDown(sender, e);
         }
@@ -119,16 +164,31 @@ namespace gh_quest
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
-                RectangleF rec = _ButtonBounds;
-                if (rec.Contains(e.CanvasLocation))
+                RectangleF buttonRectangle = _LaunchButtonBounds;
+                if (buttonRectangle.Contains(e.CanvasLocation))
                 {
-                    if (_MouseDown)
+                    if (_LaunchMouseDown)
                     {
-                        _MouseDown = false;
-                        _MouseHover = false;
+                        _LaunchMouseDown = false;
+                        _LaunchMouseHover = false;
                         Owner.OnDisplayExpired(false);
 
-                        _ButtonClickAction(); //Run Action
+                        _LaunchButtonClickAction(); //Run Action
+
+                        return GH_ObjectResponse.Release;
+                    }
+                }
+
+                RectangleF dropdownRectangle = _SelectionDropdownBounds;
+                if(dropdownRectangle.Contains(e.CanvasLocation))
+                {
+                    if (_SelectionDropdownMouseDown)
+                    {
+                        _SelectionDropdownMouseDown = false;
+                        _SelectionDropdownMouseHover = false;
+                        Owner.OnDisplayExpired(false);
+
+                        _SelectionDropdownClickAction(); //Run Action
 
                         return GH_ObjectResponse.Release;
                     }
@@ -140,17 +200,33 @@ namespace gh_quest
 
         public override GH_ObjectResponse RespondToMouseMove(GH_Canvas sender, GH_CanvasMouseEvent e)
         {
-            if (_ButtonBounds.Contains(e.CanvasLocation))
+            if (_LaunchButtonBounds.Contains(e.CanvasLocation))
             {
-                _MouseHover = true;
+                _LaunchMouseHover = true;
                 Owner.OnDisplayExpired(false);
                 sender.Cursor = System.Windows.Forms.Cursors.Hand;
                 return GH_ObjectResponse.Capture;
             }
 
-            if (_MouseHover)
+            if (_LaunchMouseHover)
             {
-                _MouseHover = false;
+                _LaunchMouseHover = false;
+                Owner.OnDisplayExpired(false);
+                Grasshopper.Instances.CursorServer.ResetCursor(sender);
+                return GH_ObjectResponse.Release;
+            }
+
+            if (_SelectionDropdownBounds.Contains(e.CanvasLocation))
+            {
+                _SelectionDropdownMouseHover = true;
+                Owner.OnDisplayExpired(false);
+                sender.Cursor = System.Windows.Forms.Cursors.Hand;
+                return GH_ObjectResponse.Capture;
+            }
+
+            if (_SelectionDropdownMouseHover)
+            {
+                _SelectionDropdownMouseHover = false;
                 Owner.OnDisplayExpired(false);
                 Grasshopper.Instances.CursorServer.ResetCursor(sender);
                 return GH_ObjectResponse.Release;
