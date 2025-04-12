@@ -12,10 +12,7 @@ namespace gh_quest
     {
         public List<IGH_Component> Components { get; set; } = new List<IGH_Component>();
 
-        public GH_Document GetActiveDocument()
-        {
-            return Grasshopper.Instances.DocumentServer.First();
-        }
+
 
         /// <summary>
         /// Each implementation of GH_Component must provide a public

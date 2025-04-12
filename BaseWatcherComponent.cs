@@ -6,6 +6,7 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Linq;
 using Eto.Forms;
 using GH_IO.Serialization;
 
@@ -13,6 +14,7 @@ using Grasshopper;
 using Grasshopper.Kernel;
 using Rhino;
 using Rhino.Geometry;
+using Newtonsoft.Json;
 
 namespace gh_quest
 {
@@ -135,19 +137,24 @@ namespace gh_quest
 
                 if (context.Request.IsWebSocketRequest)
                 {
-                HttpListenerWebSocketContext webSocketContext = await context.AcceptWebSocketAsync(null);
-                WebSocket webSocket = webSocketContext.WebSocket;
+                    HttpListenerWebSocketContext webSocketContext = await context.AcceptWebSocketAsync(null);
+                    WebSocket webSocket = webSocketContext.WebSocket;
 
-                RhinoApp.WriteLine("Client connected!");
+                    RhinoApp.WriteLine("Client connected!");
 
-                await HandleWebSocketConnection(webSocket);
+                    await HandleWebSocketConnection(webSocket);
                 }
                 else
                 {
-                context.Response.StatusCode = 400;
-                context.Response.Close();
+                    context.Response.StatusCode = 400;
+                    context.Response.Close();
                 }
             }
+        }
+
+        public GH_Document GetActiveDocument()
+        {
+            return Grasshopper.Instances.DocumentServer.First();
         }
 
         private async Task HandleWebSocketConnection(WebSocket webSocket)
@@ -155,12 +162,12 @@ namespace gh_quest
             byte[] buffer = new byte[1024];
 
             // Send an initial message to the client
-            // Read the dummy.json file into a string
-            string filePath = "/Users/ammarnaqvi/Code/Ammar/gh-quest/dummy.json";
-            string jsonContent = System.IO.File.ReadAllText(filePath);
-            byte[] initialBuffer = Encoding.UTF8.GetBytes(jsonContent);
-            await webSocket.SendAsync(new ArraySegment<byte>(initialBuffer), WebSocketMessageType.Text, true, CancellationToken.None);
 
+            GraphSchema userState = new GraphSchema(GetActiveDocument());
+
+            var questState = new QuestState(userState, userState);
+            byte[] initialBuffer = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(questState));
+            await webSocket.SendAsync(new ArraySegment<byte>(initialBuffer), WebSocketMessageType.Text, true, CancellationToken.None);
 
             while (webSocket.State == WebSocketState.Open)
             {
@@ -168,17 +175,17 @@ namespace gh_quest
 
                 if (result.MessageType == WebSocketMessageType.Close)
                 {
-                RhinoApp.WriteLine("Client disconnected!");
-                await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Closing", CancellationToken.None);
+                    RhinoApp.WriteLine("Client disconnected!");
+                    await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Closing", CancellationToken.None);
                 }
                 else
                 {
-                string message = Encoding.UTF8.GetString(buffer, 0, result.Count);
-                RhinoApp.WriteLine($"Received: {message}");
+                    string message = Encoding.UTF8.GetString(buffer, 0, result.Count);
+                    RhinoApp.WriteLine($"Received: {message}");
 
-                // Echo the message back to the client
-                byte[] responseBuffer = Encoding.UTF8.GetBytes($"Echo: {message}");
-                await webSocket.SendAsync(new ArraySegment<byte>(responseBuffer), WebSocketMessageType.Text, true, CancellationToken.None);
+                    // Echo the message back to the client
+                    byte[] responseBuffer = Encoding.UTF8.GetBytes($"Echo: {message}");
+                    await webSocket.SendAsync(new ArraySegment<byte>(responseBuffer), WebSocketMessageType.Text, true, CancellationToken.None);
                 }
             }
         }
@@ -191,7 +198,7 @@ namespace gh_quest
         public override GH_Exposure Exposure => GH_Exposure.primary;
 
         //Override the keywords for searching
-        public override IEnumerable<string> Keywords => new List<string>() {"GH Quest"};
+        public override IEnumerable<string> Keywords => new List<string>() { "GH Quest" };
 
         //Set Icons
         protected override System.Drawing.Bitmap Icon => null;
