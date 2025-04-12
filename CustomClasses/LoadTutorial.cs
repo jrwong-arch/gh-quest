@@ -108,10 +108,11 @@ namespace gh_quest.CustomClasses
             }
         }
 
-        public void LoadTutorialGeometry(string folderPath, string tutorialName)
+        public List<Brep> LoadTutorialGeometry(string folderPath, string tutorialName)
         {
             List<Brep> objectList = new List<Brep>();
-            string filePath = Path.Combine(folderPath, tutorialName);
+            string filePath = Path.Combine(folderPath, tutorialName, tutorialName + ".3dm");
+            RhinoApp.WriteLine(filePath);
 
             if(File.Exists(filePath))
             {
@@ -128,9 +129,10 @@ namespace gh_quest.CustomClasses
                     {
                         RhinoApp.WriteLine("object is not a brep");
                     }
-                    
                 }
             }
+
+            return objectList;
         }
 
     }
