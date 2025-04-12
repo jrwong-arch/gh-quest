@@ -18,6 +18,7 @@ namespace gh_quest
 
         RectangleF _TitleBounds = new RectangleF();
         PointF _IconPoint = new PointF();
+        Image _IconBitmap;
 
         RectangleF _LaunchButtonBounds = new RectangleF();
         Action _LaunchButtonClickAction;
@@ -75,7 +76,6 @@ namespace gh_quest
                 capsule.Render(graphics, Selected, Owner.Locked, false);
                 capsule.Dispose();
 
-                //Bitmap bitmap = new Bitmap("C:\\Users\\jonathan.wong\\gh-quest\\Icon\\GH_Quest_Icon_Transparent_24");
                 //graphics.DrawImage(bitmap, _IconPoint);
 
                 //Colors and Fonts

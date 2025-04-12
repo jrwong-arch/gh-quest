@@ -44,19 +44,12 @@ namespace gh_quest
             m_attributes = new BaseWatcherAttributes(this, LaunchGHQuest, SelectLesson);
         }
 
-        public override bool Write(GH_IWriter writer)
+        public override bool IsPreviewCapable
         {
-            return base.Write(writer);
-        }
-
-        public override bool Read(GH_IReader reader)
-        {
-            return base.Read(reader);
-        }
-
-        public override void ComputeData()
-        {
-            base.ComputeData();
+            get
+            {
+                return true;
+            }
         }
 
 
