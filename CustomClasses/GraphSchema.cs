@@ -54,6 +54,10 @@ namespace gh_quest
 
         public GraphComponentData(IGH_Component component)
         {
+            if (component == null)
+            {
+                return;
+            }
             if (component.Name != null)
             {
                 Name = component.Name;
@@ -70,6 +74,10 @@ namespace gh_quest
 
         public GraphComponentNodeData(IGH_Component component)
         {
+            if (component == null)
+            {
+                return;
+            }
             foreach (IGH_Param param in component.Params.Input)
             {
                 Inputs.Add(new GraphNode(param));
@@ -90,6 +98,10 @@ namespace gh_quest
 
         public GraphNode(IGH_Param param)
         {
+            if (param == null)
+            {
+                return;
+            }
             Name = param.Name;
             InstanceGuid = param.InstanceGuid.ToString();
 

@@ -92,7 +92,7 @@ namespace gh_quest
             List<string> tutorialNameList = LoadTutorial.GetAllTutorialNames(_FilePath);
             TutorialClass tutorialData = LoadTutorial.DeconstructTutorialJson(_FilePath, _TutorialName);
 
-            Rhino.Geometry.Box box = new Rhino.Geometry.Box(Rhino.Geometry.Plane.WorldXY, new Interval(0, 1000), new Interval(0,1000), new Interval(0,1000));
+            Rhino.Geometry.Box box = new Rhino.Geometry.Box(Rhino.Geometry.Plane.WorldXY, new Interval(0, 1000), new Interval(0, 1000), new Interval(0, 1000));
             _RenderBrepList.Add(box.ToBrep());
 
             RhinoApp.WriteLine("_TutorialNumber" + tutorialData._Properties._TutorialNumber);
@@ -158,6 +158,8 @@ namespace gh_quest
 
                 if (context.Request.IsWebSocketRequest)
                 {
+                    var response = context.Response;
+                    response.AddHeader("Access-Control-Allow-Origin", "*");
                     HttpListenerWebSocketContext webSocketContext = await context.AcceptWebSocketAsync(null);
                     WebSocket webSocket = webSocketContext.WebSocket;
 
@@ -226,13 +228,13 @@ namespace gh_quest
             base.DrawViewportMeshes(args);
 
             args.Display.EnableClippingPlanes(true);
-            Rhino.Display.DisplayMaterial material = new Rhino.Display.DisplayMaterial{Diffuse = Color.Black};
+            Rhino.Display.DisplayMaterial material = new Rhino.Display.DisplayMaterial { Diffuse = Color.Black };
 
-            foreach(Brep b in _RenderBrepList)
+            foreach (Brep b in _RenderBrepList)
             {
                 args.Display.DrawBrepShaded(b, material);
             }
-        
+
         }
 
     }

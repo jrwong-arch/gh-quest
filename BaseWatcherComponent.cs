@@ -28,7 +28,7 @@ namespace gh_quest
 
         public TutorialClass _ActiveTutorial { get; set; }
 
-        public string _FilePath = "C:\\Users\\Puja.Bhagat\\gh-quest\\GH_Beginner_Course_Pack\\tutorials.json";
+        public string _FilePath = "/Users/ammarnaqvi/Code/Ammar/gh-quest/GH_Beginner_Course_Pack/tutorials.json";
 
 
         //************************** CONSTRUCTOR **************************//
@@ -98,8 +98,8 @@ namespace gh_quest
 
         public void LaunchGHQuest()
         {
-            OpenWebPanel();
             StartWebSocketServer();
+            OpenWebPanel();
         }
 
 
@@ -139,6 +139,9 @@ namespace gh_quest
 
                 if (context.Request.IsWebSocketRequest)
                 {
+                    var response = context.Response;
+                    response.AddHeader("Access-Control-Allow-Origin", "*");
+
                     HttpListenerWebSocketContext webSocketContext = await context.AcceptWebSocketAsync(null);
                     WebSocket webSocket = webSocketContext.WebSocket;
 
@@ -233,7 +236,7 @@ namespace gh_quest
                     //Load Tutorial Stuff
                     _ActiveTutorial = LoadTutorial.DeconstructTutorialJson(_FilePath, _TutorialsList[_SelectedTutorialIndex]);
                     LoadTutorial tutorialLoader = new LoadTutorial();
-                    tutorialLoader.LoadTutorialPanel(_ActiveTutorial, _TutorialsList[_SelectedTutorialIndex]);     
+                    tutorialLoader.LoadTutorialPanel(_ActiveTutorial, _TutorialsList[_SelectedTutorialIndex]);
                 });
             };
 

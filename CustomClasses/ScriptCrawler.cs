@@ -9,6 +9,10 @@ namespace gh_quest
     {
         public static List<IGH_Component> GetDocumentComponents(GH_Document document)
         {
+            if (document == null)
+            {
+                return new List<IGH_Component>();
+            }
             List<IGH_Component> components = new List<IGH_Component>();
 
             foreach (IGH_DocumentObject obj in document.Objects)
