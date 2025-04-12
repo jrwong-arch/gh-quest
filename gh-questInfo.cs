@@ -15,7 +15,7 @@ namespace gh_quest
 {
   public class gh_questInfo : GH_AssemblyInfo
   {
-    public override string Name => "gh-quest Info";
+    public override string Name => "GH Quest";
 
     //Return a short string describing the purpose of this GHA library.
     public override string Description => "";
@@ -26,7 +26,7 @@ namespace gh_quest
     public override string AuthorName => "";
 
     //Return a string representing your preferred contact details.
-    public override string AuthorContact => "";
+    public override string AuthorContact => "https://github.com/jrwong-arch/gh-quest";
 
     //Return a string representing the version.  This returns the same version as the assembly.
     public override string AssemblyVersion => GetType().Assembly.GetName().Version.ToString();
