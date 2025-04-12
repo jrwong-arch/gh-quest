@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gh-quest", "gh-quest.csproj", "{16750BA2-8CBE-BBE2-97BA-5E78BFB58C78}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{16750BA2-8CBE-BBE2-97BA-5E78BFB58C78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16750BA2-8CBE-BBE2-97BA-5E78BFB58C78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16750BA2-8CBE-BBE2-97BA-5E78BFB58C78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16750BA2-8CBE-BBE2-97BA-5E78BFB58C78}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E0E97EDE-F3F4-40BD-AD31-9D810FF1B84D}
+	EndGlobalSection
+EndGlobal
