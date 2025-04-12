@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using Newtonsoft;
 
 namespace gh_quest.CustomClasses
 {
@@ -27,7 +28,7 @@ namespace gh_quest.CustomClasses
 
 
 
-    /*
+    
         public static DeconstructTutorialJson(string jsonFilePath, string tutorialName)
         {
             string jsonData = File.ReadAllText(jsonFilePath);
@@ -44,7 +45,7 @@ namespace gh_quest.CustomClasses
             }
 
         }
-    */
+
         
     }
 
