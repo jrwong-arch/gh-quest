@@ -85,7 +85,7 @@ namespace gh_quest
             LoadTutorial tutorialLoader = new LoadTutorial();
 
            // string filePath = OSManager.GetFilePath("GH_Beginner_Course_Pack", "tutorials.json");
-            string tutorialName = "Parametric_Tower_Massing";
+            string tutorialName = "Patterned_Facade_using-Attractors";
             string filePath = "C:\\Users\\Puja.Bhagat\\gh-quest\\GH_Beginner_Course_Pack\\tutorials.json";
             TutorialClass tutorialData = LoadTutorial.DeconstructTutorialJson(filePath, tutorialName);
 
@@ -100,7 +100,7 @@ namespace gh_quest
             RhinoApp.WriteLine("_ResultingGeo" + tutorialData._Properties._ResultingGeo);
             RhinoApp.WriteLine("_PsuedoCode" + tutorialData._Properties._PsuedoCode);
 
-
+        
             tutorialLoader.LoadTutorialPanel(tutorialData, tutorialName);
 
         }

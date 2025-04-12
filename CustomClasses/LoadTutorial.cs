@@ -39,10 +39,14 @@ namespace gh_quest.CustomClasses
 
         public void LoadTutorialPanel(TutorialClass tutorial, string tutorialName)
         {
+            RhinoApp.WriteLine("load start");
+            GH_Document doc = Instances.DocumentServer.First();
+            RhinoApp.WriteLine(doc.ToString());
             //if there is a tutorial on the canvas already, re-wrtie the info on it the panel for it
             if (this._TutorialPanelGuid != Guid.Empty)
             {
-                GH_Document doc = Instances.DocumentServer.First();
+                RhinoApp.WriteLine("panel is not null");
+                
 
                 RhinoApp.WriteLine(doc.ToString());
 
@@ -55,7 +59,7 @@ namespace gh_quest.CustomClasses
                 if(panel != null)
                 {
                     panel.UserText = $"{tutorialName} \n Tutorial Number: {tutorial._Properties._TutorialNumber} \n Level: {tutorial._Properties._Level} \n What You'll Learn: {tutorial._Properties._Learn} \n Your Goal: {tutorial._Properties._Learn}";
-                    RhinoApp.WriteLine(panel.UserText.ToString());
+                    RhinoApp.WriteLine("MESSAGE: " + panel.UserText.ToString());
                     panel.ExpireSolution(true);
                 }
                 else
@@ -67,10 +71,21 @@ namespace gh_quest.CustomClasses
             else
             {
                 GH_Panel panel = new GH_Panel();
-                panel.UserText = panel.UserText = $"{tutorialName} \n Tutorial Number: {tutorial._Properties._TutorialNumber} \n Level: {tutorial._Properties._Level} \n What You'll Learn: {tutorial._Properties._Learn} \n Your Goal: {tutorial._Properties._Learn}";
-                panel.Attributes.Pivot = new PointF(200, 200);
+                panel.UserText = panel.UserText = $"Level: {tutorial._Properties._Level} \n What You'll Learn: {tutorial._Properties._Learn} \n Your Goal: {tutorial._Properties._Learn}";
+                panel.CreateAttributes();
+                doc.AddObject(panel, false);
+                
+                panel.Attributes.Pivot = new PointF(0, 0);
+
+                RectangleF bounds = panel.Attributes.Bounds;
+                float newWidth = 250;
+                float newHeight = 150;
+                panel.Attributes.Bounds = new RectangleF(bounds.X, bounds.Y, newWidth, newHeight);
+                panel.NickName = $"0{tutorial._Properties._TutorialNumber}: {tutorialName}";
+                
                 this._TutorialPanelGuid = panel.InstanceGuid;
-                panel.Attributes.ExpireLayout();
+
+                panel.ExpireSolution(false);
             }
         }
 
