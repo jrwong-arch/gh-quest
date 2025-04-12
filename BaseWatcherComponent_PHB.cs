@@ -35,7 +35,7 @@ namespace gh_quest
 
         public override void CreateAttributes()
         {
-            m_attributes = new BaseWatcherAttributes(this, LaunchGHQuest);
+            m_attributes = new BaseWatcherAttributes(this, LaunchGHQuest, null);
         }
 
         public override bool Write(GH_IWriter writer)
