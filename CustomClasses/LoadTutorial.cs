@@ -28,7 +28,7 @@ namespace gh_quest.CustomClasses
 
 
 
-    
+        /*
         public static DeconstructTutorialJson(string jsonFilePath, string tutorialName)
         {
             string jsonData = File.ReadAllText(jsonFilePath);
@@ -45,6 +45,7 @@ namespace gh_quest.CustomClasses
             }
 
         }
+        */
 
         
     }
