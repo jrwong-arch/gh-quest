@@ -16,23 +16,6 @@
         "clear": true
       },
       "group": "build"
-    },
-    {
-      "label": "build release",
-      "command": "dotnet",
-      "type": "shell",
-      "args": [
-        "build",
-        "-c:Release",
-        "-clp:NoSummary",
-        "${workspaceFolder}/gh-quest.csproj"
-      ],
-      "problemMatcher": "$msCompile",
-      "presentation": {
-        "reveal": "always",
-        "clear": true
-      },
-      "group": "build"
     }
   ]
 }
