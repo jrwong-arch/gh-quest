@@ -1,1 +1,9 @@
-Create a roof canopy using Voronoi cells trimmed to a boundary.
+Title: Voronoi Pavilion Roof
+
+Tutorial number: 6
+
+Level: 🟡 Medium
+
+Learn: Voronoi, boundary trimming, extrusion.
+
+Goal: Create a roof canopy using Voronoi cells trimmed to a boundary.

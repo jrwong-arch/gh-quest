@@ -1,1 +1,9 @@
-Build a tower where each floor varies using data trees.
+Title: Interactive Pavilion with Sliders
+
+Tutorial number: 9
+
+Level: 🔴 Hard
+
+Learn: Data trees, variable extrusion.
+
+Goal: Build a tower where each floor varies using data trees.

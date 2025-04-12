@@ -1,1 +1,9 @@
-Design a wavy bench shape using sine wave modulation.
+Title: Responsive Bench
+
+Tutorial number: 5
+
+Level: 🟡 Medium
+
+Learn: Graph mapper, lofting curves.
+
+Goal: Design a wavy bench shape that responds to a sine wave modulation.

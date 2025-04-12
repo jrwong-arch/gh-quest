@@ -1,1 +1,9 @@
-Vary hole sizes in facade panels based on distance to an attractor point.
+Title: Patterned Facade using Attractors
+
+Tutorial number: 4
+
+Level: 🟡 Medium
+
+Learn: Distance-based control, circles, subtraction.
+
+Goal: Vary hole sizes in facade panels based on distance to an attractor point.

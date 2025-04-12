@@ -1,1 +1,9 @@
-Design a pavilion with adjustable ribs and spacing using sliders and graphs.
+Title: Interactive Pavilion with Sliders
+
+Tutorial number: 8
+
+Level: 🟠 Medium-Hard
+
+Learn: Parametric repetition, angle variation.
+
+Goal: Design a pavilion with adjustable ribs, spacing and curvature using sliders and graphs.

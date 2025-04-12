@@ -1,1 +1,9 @@
-Panels that rotate based on sun vector using surface normals.
+Title: Adaptive Facade with Panels
+
+Tutorial number: 3
+
+Level: 🟡 Medium
+
+Learn: Divide surface, vector math, rotation.
+
+Goal: Create a grid of panels that rotate based on sun vector using surface normals.

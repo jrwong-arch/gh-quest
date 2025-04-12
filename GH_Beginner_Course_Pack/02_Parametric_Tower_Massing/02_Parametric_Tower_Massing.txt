@@ -1,1 +1,9 @@
-Create a tower by stacking floor plates with adjustable height and count.
+Title: Parametric Tower Massing
+
+Tutorial number: 2
+
+Level: 🟢 Easy
+
+Learn: Series, move, extrude, stack logic.
+
+Goal: Create a tower by stacking floor plates with adjustable height and count.

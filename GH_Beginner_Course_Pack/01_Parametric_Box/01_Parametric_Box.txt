@@ -1,1 +1,9 @@
-Create a scalable box using number sliders and extrusion.
+Title: Parametric Box
+
+Tutorial number: 1
+
+Level: 🟢 Very Easy
+
+Learn: Basic components, number sliders, geometry creation
+
+Goal: Create a scalable box using number sliders and extrusion.

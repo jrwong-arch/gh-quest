@@ -1,1 +1,9 @@
-Create a louver system that responds to solar angles.
+Title: Sun-Responsive Louvers
+
+Tutorial number: 10
+
+Level: 🔴 Hard
+
+Learn: Sun vectors, rotation, facade systems.
+
+Goal: Create a facade with a louver system that responds to solar angles.

@@ -1,1 +1,9 @@
-Model a simple bridge using arches and lofted structures.
+Title: Parametric Bridge
+
+Tutorial number: 7
+
+Level: 🟠 Medium-Hard
+
+Learn: Arcs, divisions, repeating geometry.
+
+Goal: Model a simple bridge using arches and lofted structures.
