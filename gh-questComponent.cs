@@ -14,7 +14,7 @@ namespace gh_quest
 
         public GH_Document GetActiveDocument()
         {
-            return Instances.DocumentServer.First();
+            return Grasshopper.Instances.DocumentServer.First();
         }
 
         /// <summary>
@@ -37,6 +37,7 @@ namespace gh_quest
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Anything", "F", "Jiggle", GH_ParamAccess.tree);
+            pManager[0].Optional = true;
 
             // If you want to change properties of certain parameters,
             // you can use the pManager instance to access them by index:
