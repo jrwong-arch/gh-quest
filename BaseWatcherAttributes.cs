@@ -16,9 +16,10 @@ namespace gh_quest
     public class BaseWatcherAttributes : GH_ComponentAttributes
     {
 
+        RectangleF _TitleBounds = new RectangleF();
         RectangleF _ButtonBounds = new RectangleF();
         Action _ButtonClickAction;
-        string _ButtonText = "Launch GH Quest";
+        string _ButtonText = "Launch";
         bool _MouseDown = false;
         bool _MouseHover = false;
 
@@ -35,10 +36,12 @@ namespace gh_quest
             base.Layout();
 
             float componentWidth = 100;
-            Bounds = new RectangleF(Bounds.X - componentWidth/2, Bounds.Y, componentWidth + 25, 100);
+            float componentHeight = 50;
+            Bounds = new RectangleF(Bounds.X - componentWidth/2, Bounds.Y, componentWidth, componentHeight);
 
             float edgeOffset = 3.0f;
-            float buttonHeight = 15.0f;
+            float buttonHeight = 50.0f;
+            _TitleBounds = new RectangleF(Bounds.X + edgeOffset, Bounds.Top + edgeOffset, Bounds.Width - 2 * edgeOffset, buttonHeight);
             _ButtonBounds = new RectangleF(Bounds.X + edgeOffset, Bounds.Bottom + edgeOffset, Bounds.Width - 2 * edgeOffset, buttonHeight);
             Bounds = new RectangleF(Bounds.X, Bounds.Y, Bounds.Width, Bounds.Height + buttonHeight + (2 * edgeOffset));
         }
@@ -46,12 +49,20 @@ namespace gh_quest
 
         protected override void Render(GH_Canvas canvas, Graphics graphics, GH_CanvasChannel channel)
         {
-            base.Render(canvas, graphics, channel);
+            //base.Render(canvas, graphics, channel);
 
             if (channel == GH_CanvasChannel.Objects)
             {
+
+                var capsule = GH_Capsule.CreateCapsule(Bounds, GH_Palette.Pink);
+                capsule.Render(graphics, Selected, Owner.Locked, false);
+                capsule.Dispose();
+
                 //Colors and Fonts
                 Font buttonFont = new Font(GH_FontServer.Standard.FontFamily, GH_FontServer.Standard.Size / GH_GraphicsUtil.UiScale, FontStyle.Regular);
+
+                Font titleFont = new System.Drawing.Font(GH_FontServer.Large.Name, 12, FontStyle.Bold);
+                titleFont = new Font(titleFont.FontFamily, titleFont.Size / GH_GraphicsUtil.UiScale, FontStyle.Bold);
 
                 Brush normalColor = new SolidBrush(Color.FromArgb(255,60,60,60));
                 Brush hoverColor = new SolidBrush(Color.FromArgb(255,120,120,120));
@@ -61,6 +72,9 @@ namespace gh_quest
                 Color edgeHover = Color.Gray;
                 Color edgeClick = Color.White;
 
+
+                //Render Title Text
+                graphics.DrawString("GH Quest", titleFont, new SolidBrush(Color.Black), _TitleBounds, GH_TextRenderingConstants.CenterCenter);
 
 
                 //Render Button
