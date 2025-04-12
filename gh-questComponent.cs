@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Grasshopper;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using Rhino;
 
 namespace gh_quest
 {
@@ -101,10 +102,10 @@ namespace gh_quest
       // Finally assign the spiral to the output parameter.
       DA.SetData(0, spiral);
 
-      Console.WriteLine("Opening web panel 2...");
       var gh_questInfo = new gh_questInfo();
+      gh_questInfo.StartWebSocketServer();
+      RhinoApp.WriteLine("Web Socket Server Started...");
       gh_questInfo.OpenWebPanel();
-
     }
 
     Curve CreateSpiral(Plane plane, double r0, double r1, Int32 turns)
