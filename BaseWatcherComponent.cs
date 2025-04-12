@@ -11,7 +11,7 @@ namespace gh_quest
     public class BaseWatcherComponent : GH_Component
     {
         //************************** GLOBAL VARIABLES **************************//
-
+        public static string Id { get; set; } = "584cb7bd-05fd-4e50-a7de-d6e47bdf4c4f";
 
 
 
@@ -77,7 +77,7 @@ namespace gh_quest
         }
 
 
-        
+
 
 
         //************************** CUSTOM METHODS **************************//
@@ -92,11 +92,11 @@ namespace gh_quest
         public override GH_Exposure Exposure => GH_Exposure.primary;
 
         //Override the keywords for searching
-        public override IEnumerable<string> Keywords => new List<string>(){};
+        public override IEnumerable<string> Keywords => new List<string>() { };
 
         //Set Icons
         protected override System.Drawing.Bitmap Icon => null;
-        public override Guid ComponentGuid => new Guid("584cb7bd-05fd-4e50-a7de-d6e47bdf4c4f");
+        public override Guid ComponentGuid => new Guid(BaseWatcherComponent.Id);
 
     }
 }

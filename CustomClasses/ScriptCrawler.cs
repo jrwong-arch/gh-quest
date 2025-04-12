@@ -17,6 +17,11 @@ namespace gh_quest
                 {
                     case IGH_Component component:
                         {
+                            if (component.ComponentGuid.ToString() == BaseWatcherComponent.Id)
+                            {
+                                continue;
+                            }
+
                             components.Add(component);
                             break;
                         }
