@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Grasshopper;
 using Grasshopper.Kernel;
-using Rhino;
 using Rhino.Geometry;
-using Rhino;
+using Newtonsoft.Json;
 
 namespace gh_quest
 {
@@ -13,9 +12,9 @@ namespace gh_quest
     {
         public List<IGH_Component> Components { get; set; } = new List<IGH_Component>();
 
-        public void HandleChange()
+        public GH_Document GetActiveDocument()
         {
-            Components = ScriptCrawler.GetDocumentComponents(Grasshopper.Instances.DocumentServer.First());
+            return Instances.DocumentServer.First();
         }
 
         /// <summary>
@@ -37,14 +36,7 @@ namespace gh_quest
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            // Use the pManager object to register your input parameters.
-            // You can often supply default values when creating parameters.
-            // All parameters must have the correct access type. If you want
-            // to import lists or trees of values, modify the ParamAccess flag.
-            pManager.AddPlaneParameter("Plane", "P", "Base plane for spiral", GH_ParamAccess.item, Plane.WorldXY);
-            pManager.AddNumberParameter("Inner Radius", "R0", "Inner radius for spiral", GH_ParamAccess.item, 1.0);
-            pManager.AddNumberParameter("Outer Radius", "R1", "Outer radius for spiral", GH_ParamAccess.item, 10.0);
-            pManager.AddIntegerParameter("Turns", "T", "Number of turns between radii", GH_ParamAccess.item, 10);
+            pManager.AddGenericParameter("Anything", "F", "Jiggle", GH_ParamAccess.tree);
 
             // If you want to change properties of certain parameters,
             // you can use the pManager instance to access them by index:
@@ -56,13 +48,10 @@ namespace gh_quest
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            // Use the pManager object to register your output parameters.
-            // Output parameters do not have default values, but they too must have the correct access type.
-            pManager.AddCurveParameter("Spiral", "S", "Spiral curve", GH_ParamAccess.item);
-
             // Sometimes you want to hide a specific parameter from the Rhino preview.
             // You can use the HideParameter() method as a quick way:
             //pManager.HideParameter(0);
+            pManager.AddTextParameter("JSON", "JSON", "It's JSON", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -78,7 +67,6 @@ namespace gh_quest
             double radius0 = 0.0;
             double radius1 = 0.0;
             int turns = 0;
-
 
             // Then we need to access the input parameters individually.
             // When data cannot be extracted from a parameter, we should abort this method.
@@ -108,10 +96,9 @@ namespace gh_quest
             // The actual functionality will be in a different method:
             Curve spiral = CreateSpiral(plane, radius0, radius1, turns);
 
-            // Finally assign the spiral to the output parameter.
-            DA.SetData(0, spiral);
+            var graph = new GraphSchema(GetActiveDocument());
 
-
+            DA.SetData(0, JsonConvert.SerializeObject(graph));
         }
 
         Curve CreateSpiral(Plane plane, double r0, double r1, Int32 turns)
