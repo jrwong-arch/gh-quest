@@ -21,7 +21,7 @@ namespace gh_quest
     {
         //************************** GLOBAL VARIABLES **************************//
         //public static string Id { get; set; } = "77d216f5-3250-4e42-a196-595b56e798d2";
-
+        List<Brep> _RenderBrepList = new List<Brep>();
 
 
         //************************** CONSTRUCTOR **************************//
@@ -91,6 +91,8 @@ namespace gh_quest
             TutorialClass tutorialData = LoadTutorial.DeconstructTutorialJson(filePath, tutorialName);
 
             RhinoApp.WriteLine(tutorialData._Properties._TargetGraph);
+
+        
 
 
         
@@ -208,6 +210,22 @@ namespace gh_quest
         //Set Icons
         protected override System.Drawing.Bitmap Icon => null;
         public override Guid ComponentGuid => new Guid("e9bbe8bb-8790-4949-b16d-0438bc697fc2");
+
+
+        public override void DrawViewportMeshes(IGH_PreviewArgs args)
+        {
+            base.DrawViewportMeshes(args);
+
+            args.Display.EnableClippingPlanes(true);
+            Rhino.Display.DisplayMaterial material = new Rhino.Display.DisplayMaterial{Diffuse = Color.Black};
+
+            foreach(Brep b in _RenderBrepList)
+            {
+                args.Display.DrawBrepShaded(b, material);
+            }
+            
+
+        }
 
     }
 }
