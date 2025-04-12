@@ -40,7 +40,7 @@ namespace gh_quest
 
         public override void CreateAttributes()
         {
-            m_attributes = new BaseWatcherAttributes(this, LaunchGHQuest);
+            m_attributes = new BaseWatcherAttributes(this, LaunchGHQuest, SelectLesson);
         }
 
         public override bool Write(GH_IWriter writer)
@@ -95,6 +95,11 @@ namespace gh_quest
 
 
         //************************** CUSTOM METHODS **************************//
+
+        public void SelectLesson()
+        {
+            
+        }
 
         public void LaunchGHQuest()
         {
