@@ -117,13 +117,13 @@ namespace gh_quest
             var webView = new WebView
             {
                 Url = new Uri("http://localhost:5173/"), // Replace with your desired URL
-                Size = new Eto.Drawing.Size(1200, 1000)
+                Size = new Eto.Drawing.Size(1450, 1083)
             };
 
             var dialog = new Dialog
             {
                 Title = "Web Panel",
-                ClientSize = new Eto.Drawing.Size(1200, 1000),
+                ClientSize = new Eto.Drawing.Size(1450, 1083),
                 Content = webView
             };
 
@@ -218,7 +218,7 @@ namespace gh_quest
                 Size = new Eto.Drawing.Size(windowWidth, windowHeight),
                 Resizable = false,
                 MovableByWindowBackground = true,
-                BackgroundColor = Eto.Drawing.Color.FromArgb(245,245,245,255),
+                BackgroundColor = Eto.Drawing.Color.FromArgb(245, 245, 245, 255),
                 WindowStyle = Eto.Forms.WindowStyle.Utility,
                 Topmost = true,
                 Location = new Eto.Drawing.Point((int)(Eto.Forms.Mouse.Position.X - (windowWidth / 2.0)), (int)(Eto.Forms.Mouse.Position.Y - (windowHeight / 2.0))),
@@ -235,7 +235,7 @@ namespace gh_quest
             selectButton.Click += (object sender, EventArgs e) =>
             {
                 GH_Document doc = OnPingDocument();
-                doc.ScheduleSolution(100, selectLesson => 
+                doc.ScheduleSolution(100, selectLesson =>
                 {
                     //Load Tutorial Stuff
                     _ActiveTutorial = LoadTutorial.DeconstructTutorialJson(_FilePath, _TutorialsList[_SelectedTutorialIndex]);
@@ -255,7 +255,7 @@ namespace gh_quest
             {
                 int selectedIndex = dropDown.SelectedIndex;
                 GH_Document doc = OnPingDocument();
-                doc.ScheduleSolution(100, selectLesson => 
+                doc.ScheduleSolution(100, selectLesson =>
                 {
                     _SelectedTutorialIndex = selectedIndex;
                 });
@@ -266,7 +266,7 @@ namespace gh_quest
                 Padding = new Eto.Drawing.Padding(0),
                 Spacing = new Eto.Drawing.Size(10, 5),
 
-                Rows = 
+                Rows =
                 {
                     new Eto.Forms.TableRow(dropDown, selectButton)
                 }
