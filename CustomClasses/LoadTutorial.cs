@@ -15,6 +15,19 @@ namespace gh_quest.CustomClasses
     {
         public Guid _TutorialPanelGuid = Guid.Empty;
 
+        public static List<string> GetAllTutorialNames(string jsonFilePath)
+        {
+            if (File.Exists(jsonFilePath))
+            {
+                string jsonData = File.ReadAllText(jsonFilePath);
+                var jsonParsed = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, TutorialClass>>(jsonData);
+                List<string> nameList = jsonParsed.Keys.ToList();
+                return nameList;
+            }
+
+            else { return null; }
+        }
+
         public static TutorialClass DeconstructTutorialJson(string jsonFilePath, string tutorialName)
         {
             if (File.Exists(jsonFilePath))
@@ -114,10 +127,11 @@ namespace gh_quest.CustomClasses
         public string _ResultingGeo;
         public string _SolutionScript;
         public string _PsuedoCode;
+        public string _TargetGraph;
 
 
         public TutorialProperties(string Tutorial_Number, string Level, string Learn, string Goal, 
-        string Resulting_Geometry, string Solution_Script, string Pseudocode)
+        string Resulting_Geometry, string Solution_Script, string Pseudocode, string TargetGraph)
         {
             _TutorialNumber = Tutorial_Number;
             _Level = Level;
@@ -126,7 +140,7 @@ namespace gh_quest.CustomClasses
             _ResultingGeo = Resulting_Geometry;
             _SolutionScript = Solution_Script;
             _PsuedoCode = Pseudocode;
-
+            _TargetGraph = TargetGraph;
         }
     }
 

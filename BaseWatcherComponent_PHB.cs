@@ -85,20 +85,13 @@ namespace gh_quest
             LoadTutorial tutorialLoader = new LoadTutorial();
 
            // string filePath = OSManager.GetFilePath("GH_Beginner_Course_Pack", "tutorials.json");
-            string tutorialName = "Patterned_Facade_using-Attractors";
+            string tutorialName = "Parametric_Box";
             string filePath = "C:\\Users\\Puja.Bhagat\\gh-quest\\GH_Beginner_Course_Pack\\tutorials.json";
+            List<string> tutorialNameList = LoadTutorial.GetAllTutorialNames(filePath);
             TutorialClass tutorialData = LoadTutorial.DeconstructTutorialJson(filePath, tutorialName);
 
+            RhinoApp.WriteLine(tutorialData._Properties._TargetGraph);
 
-
-            RhinoApp.WriteLine("_TutorialNumber" + tutorialData._Properties._TutorialNumber);
-            RhinoApp.WriteLine("_Level" + tutorialData._Properties._Level);
-            RhinoApp.WriteLine("_Learn" + tutorialData._Properties._Learn);
-            RhinoApp.WriteLine("_Goal" + tutorialData._Properties._Goal);
-            RhinoApp.WriteLine("_ResultingGeo" + tutorialData._Properties._ResultingGeo);
-            RhinoApp.WriteLine("_SolutionScript" + tutorialData._Properties._SolutionScript);
-            RhinoApp.WriteLine("_ResultingGeo" + tutorialData._Properties._ResultingGeo);
-            RhinoApp.WriteLine("_PsuedoCode" + tutorialData._Properties._PsuedoCode);
 
         
             tutorialLoader.LoadTutorialPanel(tutorialData, tutorialName);
