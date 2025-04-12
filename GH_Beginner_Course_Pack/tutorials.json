@@ -1,0 +1,132 @@
+{
+    "Parametric Box":
+    {
+        "properties":{
+            "Tutorial Number": "1",
+            "Level": "🟢 Very Easy",
+            "Learn": "Basic components, number sliders, geometry creation.",
+            "Goal": "Create a scalable box using number sliders and extrusion.",
+            "Resulting Geometry": "01_Parametric_Box.3dm",
+            "Solution Script": "01_Parametric_Box.gh",
+            "Pseudocode": "01_Parametric_Box.png"
+        }
+    },
+
+    "Parametric Tower Massing":
+    {
+        "properties":{
+            "Tutorial Number": "2",
+            "Level": "🟢 Easy",
+            "Learn": "Series, move, extrude, stack logic.",
+            "Goal": "Create a tower by stacking floor plates with adjustable height and count.",
+            "Resulting Geometry": "02_Parametric_Tower_Massing.3dm",
+            "Solution Script": "02_Parametric_Tower_Massing.gh",
+            "Pseudocode": "02_Parametric_Tower_Massing.png"       
+        }
+    },
+
+    "Adaptive Facade with Panels":
+    {
+        "properties":{
+            "Tutorial Number": "3",
+            "Level": "🟡 Medium",
+            "Learn": "Divide surface, vector math, rotation.",
+            "Goal": "Create a grid of panels that rotate based on sun vector using surface normals.",
+            "Resulting Geometry": "03_Adaptive_Facade_Panels.3dm",
+            "Solution Script": "03_Adaptive_Facade_Panels.gh",
+            "Pseudocode": "03_Adaptive_Facade_Panels.png"       
+        }
+    },
+
+    "Patterned Facade using Attractors":
+    {
+        "properties":{
+            "Tutorial Number": "4",
+            "Level": "🟡 Medium",
+            "Learn": "Distance-based control, circles, subtraction.",
+            "Goal": "Vary hole sizes in facade panels based on distance to an attractor point.",
+            "Resulting Geometry": "04_Attractor_Based_Pattern.3dm",
+            "Solution Script": "04_Attractor_Based_Pattern.gh",
+            "Pseudocode": "04_Attractor_Based_Pattern.png"       
+        }
+    },
+
+    "Responsive Bench":
+    {
+        "properties":{
+            "Tutorial Number": "5",
+            "Level": "🟡 Medium",
+            "Learn": "Graph mapper, lofting curves.",
+            "Goal": "Design a wavy bench shape that responds to a sine wave modulation.",
+            "Resulting Geometry": "05_Responsive_Bench.3dm",
+            "Solution Script": "05_Responsive_Bench.gh",
+            "Pseudocode": "05_Responsive_Bench.png"       
+        }
+    },
+
+    "Voronoi Pavilion Roof":
+    {
+        "properties":{
+            "Tutorial Number": "6",
+            "Level": "🟡 Medium",
+            "Learn": "Voronoi, boundary trimming, extrusion.",
+            "Goal": "Create a roof canopy using Voronoi cells trimmed to a boundary.",
+            "Resulting Geometry": "06_Voronoi_Pavilion_Roof.3dm",
+            "Solution Script": "06_Voronoi_Pavilion_Roof.gh",
+            "Pseudocode": "06_Voronoi_Pavilion_Roof.png"       
+        }
+    },
+
+    "Parametric Bridge":
+    {
+        "properties":{
+            "Tutorial Number": "7",
+            "Level": "🟠 Medium-Hard",
+            "Learn": "Arcs, divisions, repeating geometry.",
+            "Goal": "Model a simple bridge using arches and lofted structures.",
+            "Resulting Geometry": "07_Parametric_Bridge.3dm",
+            "Solution Script": "07_Parametric_Bridge.gh",
+            "Pseudocode": "07_Parametric_Bridge.png"       
+        }
+    },
+
+    "Interactive Pavilion with Sliders":
+    {
+        "properties":{
+            "Tutorial Number": "8",
+            "Level": "🟠 Medium-Hard",
+            "Learn": "Parametric repetition, angle variation.",
+            "Goal": "Design a pavilion with adjustable ribs, spacing and curvature using sliders and graphs.",
+            "Resulting Geometry": "08_Interactive_Pavilion.3dm",
+            "Solution Script": "08_Interactive_Pavilion.gh",
+            "Pseudocode": "08_Interactive_Pavilion.png"       
+        }
+    },
+
+    "Data Trees with Adaptive Tower":
+    {
+        "properties":{
+            "Tutorial Number": "9",
+            "Level": "🔴 Hard",
+            "Learn": "Data trees, variable extrusion.",
+            "Goal": "Build a tower where each floor varies using data trees.",
+            "Resulting Geometry": "09_Adaptive_Tower_DataTrees.3dm",
+            "Solution Script": "09_Adaptive_Tower_DataTrees.gh",
+            "Pseudocode": "09_Adaptive_Tower_DataTrees.png"       
+        }
+    },
+    
+    "Sun-Responsive Louvers":
+    {
+        "properties":{
+            "Tutorial Number": "10",
+            "Level": "🔴 Hard",
+            "Learn": "Sun vectors, rotation, facade systems.",
+            "Goal": "Create a facade with a louver system that responds to solar angles.",
+            "Resulting Geometry": "10_Sun_Responsive_Louvers.3dm",
+            "Solution Script": "10_Sun_Responsive_Louvers.gh",
+            "Pseudocode": "10_Sun_Responsive_Louvers.png"       
+        }
+    }
+    
+}

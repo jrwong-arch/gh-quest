@@ -1,0 +1,90 @@
+{
+    "6ea52cac-203d-4636-8528-356bbc52d160":
+    {
+        "componentData":{
+            "name": "Move",
+            "description": "Translate (move) an object along a vector",
+            "runTime": "25"
+        },
+        "nodeData": {
+            "inputs": [
+                {
+                    "name": "Geometry",
+                    "connections": [
+                        "89c58804-31ff-43b1-a08b-eabcf22f568b",
+                        "7c40ef27-a8e0-4214-88d5-44303a2502bc"
+                    ]
+                },
+                {
+                    "name": "Motion",
+                    "connections": [
+                        "c948958a-0a51-4c8a-9ac8-0311f8a45cd5"
+                    ]
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "Geometry",
+                    "connections": [
+                        "f770882b-ee52-4898-adb4-351b305b24b1"
+                    ]
+                },
+                {
+                    "name": "Move",
+                    "connections": [
+                    ]
+                }
+            ]  
+        }
+    },
+    "89c58804-31ff-43b1-a08b-eabcf22f568b":
+    {
+        "componentData":{
+            "name": "Point",
+            "description": "Point",
+            "runTime": "3"
+        },
+        "nodeData": {
+            "inputs": [
+                {
+                    "name": "Point",
+                    "connections": [
+                    ]
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "Geometry",
+                    "connections": [
+                        "6ea52cac-203d-4636-8528-356bbc52d160"
+                    ]
+                }
+            ]  
+        }
+    },
+    "7c40ef27-a8e0-4214-88d5-44303a2502bc":
+    {
+        "componentData":{
+            "name": "Unit Z",
+            "description": "Z",
+            "runTime": "2"
+        },
+        "nodeData": {
+            "inputs": [
+                {
+                    "name": "Factor",
+                    "connections": [
+                    ]
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "Unit Vector",
+                    "connections": [
+                        "6ea52cac-203d-4636-8528-356bbc52d160"
+                    ]
+                }
+            ]  
+        }
+    }
+}

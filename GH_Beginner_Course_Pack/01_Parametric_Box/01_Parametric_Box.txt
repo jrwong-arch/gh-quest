@@ -4,6 +4,6 @@ Tutorial number: 1
 
 Level: 🟢 Very Easy
 
-Learn: Basic components, number sliders, geometry creation
+Learn: Basic components, number sliders, geometry creation.
 
 Goal: Create a scalable box using number sliders and extrusion.
