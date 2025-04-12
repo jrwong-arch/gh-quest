@@ -8,7 +8,8 @@
             "Goal": "Create a scalable box using number sliders and extrusion.",
             "Resulting_Geometry": "01_Parametric_Box.3dm",
             "Solution_Script": "01_Parametric_Box.gh",
-            "Pseudocode": "01_Parametric_Box.png"
+            "Pseudocode": "01_Parametric_Box.png",
+            "TargetGraph": "eyJEb2N1bWVudCI6eyJjOTI0MTZmYi00MjQzLTQ4NjQtOWIzYS03YzViNzRkM2NjNTYiOnsiQ29tcG9uZW50RGF0YSI6eyJOYW1lIjoiUmVjdGFuZ2xlIiwiRGVzY3JpcHRpb24iOiJDcmVhdGUgYSByZWN0YW5nbGUgb24gYSBwbGFuZSIsIlJ1blRpbWUiOiIxMy44NzY2In0sIk5vZGVEYXRhIjp7IklucHV0cyI6W3siTmFtZSI6IlBsYW5lIiwiSW5zdGFuY2VHdWlkIjoiNzY3MDVlNjAtZDA5Zi00ODEwLWJmNTAtYWFmMDQyMDAyMjRkIiwiQ29ubmVjdGlvbnMiOlsiYzAxYmNlNjItYTc1Yi00ZDljLThmZWMtZjVjMWQzMTQ1YjFkIl19LHsiTmFtZSI6IlggU2l6ZSIsIkluc3RhbmNlR3VpZCI6IjNkNDNkYjQ4LTgwNzgtNDk1Yy1iMTU1LTBiMDEwZDZlZDNmOCIsIkNvbm5lY3Rpb25zIjpbImY1OWY2MTEzLWEwZTYtNDQzNy05MGNjLTY1YzA0YWZiNGQzYSJdfSx7Ik5hbWUiOiJZIFNpemUiLCJJbnN0YW5jZUd1aWQiOiIxZmQxYTMyNy0zMzRiLTQyMGQtOWQ5Yy01Nzg5Y2VhMjFkYWYiLCJDb25uZWN0aW9ucyI6WyJmODhjOWYyNC0zYTkyLTQ5ZWEtYWQ0Ny0xMjZmMDU1YzhmZDEiXX0seyJOYW1lIjoiUmFkaXVzIiwiSW5zdGFuY2VHdWlkIjoiNzgyYTQ4ZWItMzljMC00NDg3LTlhYjYtYTU0ODY3ZWU0ZjYzIiwiQ29ubmVjdGlvbnMiOltdfV0sIk91dHB1dHMiOlt7Ik5hbWUiOiJSZWN0YW5nbGUiLCJJbnN0YW5jZUd1aWQiOiI2OTQxOTMzYS1kMWRiLTQzNDgtOGNhZC05MWZkN2UwNDkyYzUiLCJDb25uZWN0aW9ucyI6W119LHsiTmFtZSI6Ikxlbmd0aCIsIkluc3RhbmNlR3VpZCI6ImNmZGJmMWE1LTJkYzQtNGNmNi1hZGNiLTFjM2RmYjhlZjZlMSIsIkNvbm5lY3Rpb25zIjpbXX1dfX0sIjg1Njg4MDVmLTA2ZTQtNGMzYy1iZDZlLTllYmFiMzA1MGJjZiI6eyJDb21wb25lbnREYXRhIjp7Ik5hbWUiOiJCb3ggUmVjdGFuZ2xlIiwiRGVzY3JpcHRpb24iOiJDcmVhdGUgYSBib3ggZGVmaW5lZCBieSBhIHJlY3RhbmdsZSBhbmQgYSBoZWlnaHQuIiwiUnVuVGltZSI6IjIuMTgxOCJ9LCJOb2RlRGF0YSI6eyJJbnB1dHMiOlt7Ik5hbWUiOiJSZWN0YW5nbGUiLCJJbnN0YW5jZUd1aWQiOiI5NTI0MTQyYi05ZDFmLTRkYmQtYWNlNy1lOWFlZWJkNmUxZTkiLCJDb25uZWN0aW9ucyI6WyI2OTQxOTMzYS1kMWRiLTQzNDgtOGNhZC05MWZkN2UwNDkyYzUiXX0seyJOYW1lIjoiSGVpZ2h0IiwiSW5zdGFuY2VHdWlkIjoiNzRkNzM5MmItY2UwYy00YmU4LWJmODYtMWExYjVlYzhhNGQyIiwiQ29ubmVjdGlvbnMiOlsiY2IyYzUwZGUtZDg1Zi00YjI2LTk1ZDAtY2UxZmU2YWQwNDIyIl19XSwiT3V0cHV0cyI6W3siTmFtZSI6IkJveCIsIkluc3RhbmNlR3VpZCI6IjM1ZmJkMTVjLTM1NzUtNGI5Yi1hNWUzLWI5NjQwNGFmNGFmZSIsIkNvbm5lY3Rpb25zIjpbXX1dfX0sImZiZmQyMWM3LWY2YzktNDBkZC1iYzBiLTQ3NGUzNWU3NmRiMyI6eyJDb21wb25lbnREYXRhIjp7Ik5hbWUiOiJYWSBQbGFuZSIsIkRlc2NyaXB0aW9uIjoiV29ybGQgWFkgcGxhbmUuIiwiUnVuVGltZSI6IjE0LjE2MzQifSwiTm9kZURhdGEiOnsiSW5wdXRzIjpbeyJOYW1lIjoiT3JpZ2luIiwiSW5zdGFuY2VHdWlkIjoiYjcwMjhiZDItYWE4Ny00MTNjLWJkNjYtMTU4OGRiYzVjZGMwIiwiQ29ubmVjdGlvbnMiOltdfV0sIk91dHB1dHMiOlt7Ik5hbWUiOiJQbGFuZSIsIkluc3RhbmNlR3VpZCI6ImMwMWJjZTYyLWE3NWItNGQ5Yy04ZmVjLWY1YzFkMzE0NWIxZCIsIkNvbm5lY3Rpb25zIjpbXX1dfX0sIjk4NTEwODQ0LTlmOTktNDYyNi04ODU4LTQ5ZWMwMjJkNWY3MyI6eyJDb21wb25lbnREYXRhIjp7Ik5hbWUiOiJnaC1xdWVzdCBDb21wb25lbnQiLCJEZXNjcmlwdGlvbiI6IkRlc2NyaXB0aW9uIG9mIGNvbXBvbmVudCIsIlJ1blRpbWUiOiIwLjAwNDIifX19fQo="
         }
     },
 
@@ -21,7 +22,7 @@
             "Goal": "Create a tower by stacking floor plates with adjustable height and count.",
             "Resulting_Geometry": "02_Parametric_Tower_Massing.3dm",
             "Solution_Script": "02_Parametric_Tower_Massing.gh",
-            "Pseudocode": "02_Parametric_Tower_Massing.png"       
+            "Pseudocode": "02_Parametric_Tower_Massing.png"
         }
     },
 
@@ -34,7 +35,7 @@
             "Goal": "Create a grid of panels that rotate based on sun vector using surface normals.",
             "Resulting_Geometry": "03_Adaptive_Facade_Panels.3dm",
             "Solution_Script": "03_Adaptive_Facade_Panels.gh",
-            "Pseudocode": "03_Adaptive_Facade_Panels.png"       
+            "Pseudocode": "03_Adaptive_Facade_Panels.png"
         }
     },
 
@@ -47,7 +48,7 @@
             "Goal": "Vary hole sizes in facade panels based on distance to an attractor point.",
             "Resulting_Geometry": "04_Attractor_Based_Pattern.3dm",
             "Solution_Script": "04_Attractor_Based_Pattern.gh",
-            "Pseudocode": "04_Attractor_Based_Pattern.png"       
+            "Pseudocode": "04_Attractor_Based_Pattern.png"
         }
     },
 
@@ -60,7 +61,7 @@
             "Goal": "Design a wavy bench shape that responds to a sine wave modulation.",
             "Resulting_Geometry": "05_Responsive_Bench.3dm",
             "Solution_Script": "05_Responsive_Bench.gh",
-            "Pseudocode": "05_Responsive_Bench.png"       
+            "Pseudocode": "05_Responsive_Bench.png"
         }
     },
 
@@ -73,7 +74,7 @@
             "Goal": "Create a roof canopy using Voronoi cells trimmed to a boundary.",
             "Resulting_Geometry": "06_Voronoi_Pavilion_Roof.3dm",
             "Solution_Script": "06_Voronoi_Pavilion_Roof.gh",
-            "Pseudocode": "06_Voronoi_Pavilion_Roof.png"       
+            "Pseudocode": "06_Voronoi_Pavilion_Roof.png"
         }
     },
 
@@ -86,7 +87,7 @@
             "Goal": "Model a simple bridge using arches and lofted structures.",
             "Resulting_Geometry": "07_Parametric_Bridge.3dm",
             "Solution_Script": "07_Parametric_Bridge.gh",
-            "Pseudocode": "07_Parametric_Bridge.png"       
+            "Pseudocode": "07_Parametric_Bridge.png"
         }
     },
 
@@ -99,7 +100,7 @@
             "Goal": "Design a pavilion with adjustable ribs, spacing and curvature using sliders and graphs.",
             "Resulting_Geometry": "08_Interactive_Pavilion.3dm",
             "Solution_Script": "08_Interactive_Pavilion.gh",
-            "Pseudocode": "08_Interactive_Pavilion.png"       
+            "Pseudocode": "08_Interactive_Pavilion.png"
         }
     },
 
@@ -112,10 +113,10 @@
             "Goal": "Build a tower where each floor varies using data trees.",
             "Resulting_Geometry": "09_Adaptive_Tower_DataTrees.3dm",
             "Solution_Script": "09_Adaptive_Tower_DataTrees.gh",
-            "Pseudocode": "09_Adaptive_Tower_DataTrees.png"       
+            "Pseudocode": "09_Adaptive_Tower_DataTrees.png"
         }
     },
-    
+
     "Sun-Responsive_Louvers":
     {
         "properties":{
@@ -125,8 +126,8 @@
             "Goal": "Create a facade with a louver system that responds to solar angles.",
             "Resulting_Geometry": "10_Sun_Responsive_Louvers.3dm",
             "Solution_Script": "10_Sun_Responsive_Louvers.gh",
-            "Pseudocode": "10_Sun_Responsive_Louvers.png"       
+            "Pseudocode": "10_Sun_Responsive_Louvers.png"
         }
     }
-    
+
 }

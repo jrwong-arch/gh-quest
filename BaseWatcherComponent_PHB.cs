@@ -6,32 +6,27 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Linq;
 using Eto.Forms;
 using GH_IO.Serialization;
-
+using gh_quest.CustomClasses;
 using Grasshopper;
 using Grasshopper.Kernel;
 using Rhino;
 using Rhino.Geometry;
-using Newtonsoft.Json;
-using gh_quest.CustomClasses;
+using Rhino.UI.CodeEditor;
 
 namespace gh_quest
 {
-    public class BaseWatcherComponent : GH_Component
+    public class BaseWatcherComponentPHB : GH_Component
     {
         //************************** GLOBAL VARIABLES **************************//
-        public static string Id { get; set; } = "584cb7bd-05fd-4e50-a7de-d6e47bdf4c4f";
-        public string _ActiveScriptJSON;
-        public string _TutorialJSON;
+        //public static string Id { get; set; } = "77d216f5-3250-4e42-a196-595b56e798d2";
 
-        public TutorialClass _ActiveTutorial { get; set; }
 
 
         //************************** CONSTRUCTOR **************************//
-        public BaseWatcherComponent()
-        : base("Base Watcher", "BW",
+        public BaseWatcherComponentPHB()
+        : base("Base Watcher_PHB", "BW",
             "Description",
             "GH Quest", "Primary")
 
@@ -87,6 +82,28 @@ namespace gh_quest
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            LoadTutorial tutorialLoader = new LoadTutorial();
+
+            // string filePath = OSManager.GetFilePath("GH_Beginner_Course_Pack", "tutorials.json");
+            string tutorialName = "Patterned_Facade_using-Attractors";
+            string filePath = "C:\\Users\\Puja.Bhagat\\gh-quest\\GH_Beginner_Course_Pack\\tutorials.json";
+            List<string> tutorialNameList = LoadTutorial.GetAllTutorialNames(filePath);
+            TutorialClass tutorialData = LoadTutorial.DeconstructTutorialJson(filePath, tutorialName);
+
+            RhinoApp.WriteLine(tutorialData._Properties._TargetGraph);
+
+
+            RhinoApp.WriteLine("_TutorialNumber" + tutorialData._Properties._TutorialNumber);
+            RhinoApp.WriteLine("_Level" + tutorialData._Properties._Level);
+            RhinoApp.WriteLine("_Learn" + tutorialData._Properties._Learn);
+            RhinoApp.WriteLine("_Goal" + tutorialData._Properties._Goal);
+            RhinoApp.WriteLine("_ResultingGeo" + tutorialData._Properties._ResultingGeo);
+            RhinoApp.WriteLine("_SolutionScript" + tutorialData._Properties._SolutionScript);
+            RhinoApp.WriteLine("_ResultingGeo" + tutorialData._Properties._ResultingGeo);
+            RhinoApp.WriteLine("_PsuedoCode" + tutorialData._Properties._PsuedoCode);
+
+
+            tutorialLoader.LoadTutorialPanel(tutorialData, tutorialName);
 
         }
 
@@ -110,13 +127,13 @@ namespace gh_quest
             var webView = new WebView
             {
                 Url = new Uri("http://localhost:5173/"), // Replace with your desired URL
-                Size = new Eto.Drawing.Size(1200, 1000)
+                Size = new Eto.Drawing.Size(800, 600)
             };
 
             var dialog = new Dialog
             {
                 Title = "Web Panel",
-                ClientSize = new Eto.Drawing.Size(1200, 1000),
+                ClientSize = new Eto.Drawing.Size(800, 600),
                 Content = webView
             };
 
@@ -154,27 +171,17 @@ namespace gh_quest
             }
         }
 
-        public GH_Document GetActiveDocument()
-        {
-            return Grasshopper.Instances.DocumentServer.First();
-        }
-
         private async Task HandleWebSocketConnection(WebSocket webSocket)
         {
             byte[] buffer = new byte[1024];
 
             // Send an initial message to the client
-
-            GraphSchema userState = new GraphSchema(GetActiveDocument());
-
-            byte[] jsonBytes = Convert.FromBase64String(_ActiveTutorial._Properties._TargetGraph);
-            string jsonString = Encoding.UTF8.GetString(jsonBytes);
-
-            GraphSchema goalState = JsonConvert.DeserializeObject<GraphSchema>(jsonString);
-
-            var questState = new QuestState(userState, goalState);
-            byte[] initialBuffer = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(questState));
+            // Read the dummy.json file into a string
+            string filePath = "/Users/ammarnaqvi/Code/Ammar/gh-quest/dummy.json";
+            string jsonContent = System.IO.File.ReadAllText(filePath);
+            byte[] initialBuffer = Encoding.UTF8.GetBytes(jsonContent);
             await webSocket.SendAsync(new ArraySegment<byte>(initialBuffer), WebSocketMessageType.Text, true, CancellationToken.None);
+
 
             while (webSocket.State == WebSocketState.Open)
             {
@@ -205,11 +212,11 @@ namespace gh_quest
         public override GH_Exposure Exposure => GH_Exposure.primary;
 
         //Override the keywords for searching
-        public override IEnumerable<string> Keywords => new List<string>() { "GH Quest" };
+        public override IEnumerable<string> Keywords => new List<string>() { };
 
         //Set Icons
         protected override System.Drawing.Bitmap Icon => null;
-        public override Guid ComponentGuid => new Guid(BaseWatcherComponent.Id);
+        public override Guid ComponentGuid => new Guid("e9bbe8bb-8790-4949-b16d-0438bc697fc2");
 
     }
 }
