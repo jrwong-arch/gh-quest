@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Drawing;
+using Eto.Forms;
+using Eto.Drawing;
 using Grasshopper;
 using Grasshopper.Kernel;
 
@@ -8,9 +9,6 @@ namespace gh_quest
   public class gh_questInfo : GH_AssemblyInfo
   {
     public override string Name => "gh-quest Info";
-
-    //Return a 24x24 pixel bitmap to represent this GHA library.
-    public override Bitmap Icon => null;
 
     //Return a short string describing the purpose of this GHA library.
     public override string Description => "";
@@ -25,5 +23,25 @@ namespace gh_quest
 
     //Return a string representing the version.  This returns the same version as the assembly.
     public override string AssemblyVersion => GetType().Assembly.GetName().Version.ToString();
+
+    // Method to open an Eto web panel
+    public void OpenWebPanel()
+    {
+      Console.WriteLine("Opening web panel...");
+      var webView = new WebView
+      {
+        Url = new Uri("http://localhost:5173/"), // Replace with your desired URL
+        Size = new Size(800, 600)
+      };
+
+      var dialog = new Dialog
+      {
+        Title = "Web Panel",
+        ClientSize = new Size(800, 600),
+        Content = webView
+      };
+
+      dialog.ShowModal();
+    }
   }
 }
