@@ -24,6 +24,11 @@ namespace gh_quest
         {
         }
 
+        public override void CreateAttributes()
+        {
+            m_attributes = new BaseWatcherAttributes(this, null);
+        }
+
         public override bool Write(GH_IWriter writer)
         {
             return base.Write(writer);
@@ -85,14 +90,14 @@ namespace gh_quest
         //**************************UTILITIES**************************//
 
         //Set Component Exposure
-        public override GH_Exposure Exposure => GH_Exposure.quinary;
+        public override GH_Exposure Exposure => GH_Exposure.primary;
 
         //Override the keywords for searching
         public override IEnumerable<string> Keywords => new List<string>(){};
 
         //Set Icons
         protected override System.Drawing.Bitmap Icon => null;
-        public override Guid ComponentGuid => new Guid("b590d30b-c3cb-44fd-a5a5-d05b30171f71");
+        public override Guid ComponentGuid => new Guid("584cb7bd-05fd-4e50-a7de-d6e47bdf4c4f");
 
     }
 }
