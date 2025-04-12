@@ -1,0 +1,1 @@
+Design a wavy bench shape using sine wave modulation.

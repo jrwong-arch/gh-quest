@@ -1,0 +1,1 @@
+Design a pavilion with adjustable ribs and spacing using sliders and graphs.
