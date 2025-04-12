@@ -15,6 +15,7 @@ using Grasshopper.Kernel;
 using Rhino;
 using Rhino.Geometry;
 using Newtonsoft.Json;
+using gh_quest.CustomClasses;
 
 namespace gh_quest
 {
@@ -25,6 +26,7 @@ namespace gh_quest
         public string _ActiveScriptJSON;
         public string _TutorialJSON;
 
+        public TutorialClass _ActiveTutorial { get; set; }
 
 
         //************************** CONSTRUCTOR **************************//
@@ -165,7 +167,12 @@ namespace gh_quest
 
             GraphSchema userState = new GraphSchema(GetActiveDocument());
 
-            var questState = new QuestState(userState, userState);
+            byte[] jsonBytes = Convert.FromBase64String(_ActiveTutorial._Properties._TargetGraph);
+            string jsonString = Encoding.UTF8.GetString(jsonBytes);
+
+            GraphSchema goalState = JsonConvert.DeserializeObject<GraphSchema>(jsonString);
+
+            var questState = new QuestState(userState, goalState);
             byte[] initialBuffer = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(questState));
             await webSocket.SendAsync(new ArraySegment<byte>(initialBuffer), WebSocketMessageType.Text, true, CancellationToken.None);
 

@@ -84,8 +84,8 @@ namespace gh_quest
         {
             LoadTutorial tutorialLoader = new LoadTutorial();
 
-           // string filePath = OSManager.GetFilePath("GH_Beginner_Course_Pack", "tutorials.json");
-            string tutorialName = "Parametric_Box";
+            // string filePath = OSManager.GetFilePath("GH_Beginner_Course_Pack", "tutorials.json");
+            string tutorialName = "Patterned_Facade_using-Attractors";
             string filePath = "C:\\Users\\Puja.Bhagat\\gh-quest\\GH_Beginner_Course_Pack\\tutorials.json";
             List<string> tutorialNameList = LoadTutorial.GetAllTutorialNames(filePath);
             TutorialClass tutorialData = LoadTutorial.DeconstructTutorialJson(filePath, tutorialName);
@@ -93,7 +93,16 @@ namespace gh_quest
             RhinoApp.WriteLine(tutorialData._Properties._TargetGraph);
 
 
-        
+            RhinoApp.WriteLine("_TutorialNumber" + tutorialData._Properties._TutorialNumber);
+            RhinoApp.WriteLine("_Level" + tutorialData._Properties._Level);
+            RhinoApp.WriteLine("_Learn" + tutorialData._Properties._Learn);
+            RhinoApp.WriteLine("_Goal" + tutorialData._Properties._Goal);
+            RhinoApp.WriteLine("_ResultingGeo" + tutorialData._Properties._ResultingGeo);
+            RhinoApp.WriteLine("_SolutionScript" + tutorialData._Properties._SolutionScript);
+            RhinoApp.WriteLine("_ResultingGeo" + tutorialData._Properties._ResultingGeo);
+            RhinoApp.WriteLine("_PsuedoCode" + tutorialData._Properties._PsuedoCode);
+
+
             tutorialLoader.LoadTutorialPanel(tutorialData, tutorialName);
 
         }
@@ -147,17 +156,17 @@ namespace gh_quest
 
                 if (context.Request.IsWebSocketRequest)
                 {
-                HttpListenerWebSocketContext webSocketContext = await context.AcceptWebSocketAsync(null);
-                WebSocket webSocket = webSocketContext.WebSocket;
+                    HttpListenerWebSocketContext webSocketContext = await context.AcceptWebSocketAsync(null);
+                    WebSocket webSocket = webSocketContext.WebSocket;
 
-                RhinoApp.WriteLine("Client connected!");
+                    RhinoApp.WriteLine("Client connected!");
 
-                await HandleWebSocketConnection(webSocket);
+                    await HandleWebSocketConnection(webSocket);
                 }
                 else
                 {
-                context.Response.StatusCode = 400;
-                context.Response.Close();
+                    context.Response.StatusCode = 400;
+                    context.Response.Close();
                 }
             }
         }
@@ -180,17 +189,17 @@ namespace gh_quest
 
                 if (result.MessageType == WebSocketMessageType.Close)
                 {
-                RhinoApp.WriteLine("Client disconnected!");
-                await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Closing", CancellationToken.None);
+                    RhinoApp.WriteLine("Client disconnected!");
+                    await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Closing", CancellationToken.None);
                 }
                 else
                 {
-                string message = Encoding.UTF8.GetString(buffer, 0, result.Count);
-                RhinoApp.WriteLine($"Received: {message}");
+                    string message = Encoding.UTF8.GetString(buffer, 0, result.Count);
+                    RhinoApp.WriteLine($"Received: {message}");
 
-                // Echo the message back to the client
-                byte[] responseBuffer = Encoding.UTF8.GetBytes($"Echo: {message}");
-                await webSocket.SendAsync(new ArraySegment<byte>(responseBuffer), WebSocketMessageType.Text, true, CancellationToken.None);
+                    // Echo the message back to the client
+                    byte[] responseBuffer = Encoding.UTF8.GetBytes($"Echo: {message}");
+                    await webSocket.SendAsync(new ArraySegment<byte>(responseBuffer), WebSocketMessageType.Text, true, CancellationToken.None);
                 }
             }
         }
