@@ -106,13 +106,13 @@ namespace gh_quest
             var webView = new WebView
             {
                 Url = new Uri("http://localhost:5173/"), // Replace with your desired URL
-                Size = new Eto.Drawing.Size(800, 600)
+                Size = new Eto.Drawing.Size(1200, 1000)
             };
 
             var dialog = new Dialog
             {
                 Title = "Web Panel",
-                ClientSize = new Eto.Drawing.Size(800, 600),
+                ClientSize = new Eto.Drawing.Size(1200, 1000),
                 Content = webView
             };
 
@@ -135,17 +135,17 @@ namespace gh_quest
 
                 if (context.Request.IsWebSocketRequest)
                 {
-                HttpListenerWebSocketContext webSocketContext = await context.AcceptWebSocketAsync(null);
-                WebSocket webSocket = webSocketContext.WebSocket;
+                    HttpListenerWebSocketContext webSocketContext = await context.AcceptWebSocketAsync(null);
+                    WebSocket webSocket = webSocketContext.WebSocket;
 
-                RhinoApp.WriteLine("Client connected!");
+                    RhinoApp.WriteLine("Client connected!");
 
-                await HandleWebSocketConnection(webSocket);
+                    await HandleWebSocketConnection(webSocket);
                 }
                 else
                 {
-                context.Response.StatusCode = 400;
-                context.Response.Close();
+                    context.Response.StatusCode = 400;
+                    context.Response.Close();
                 }
             }
         }
@@ -168,17 +168,17 @@ namespace gh_quest
 
                 if (result.MessageType == WebSocketMessageType.Close)
                 {
-                RhinoApp.WriteLine("Client disconnected!");
-                await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Closing", CancellationToken.None);
+                    RhinoApp.WriteLine("Client disconnected!");
+                    await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Closing", CancellationToken.None);
                 }
                 else
                 {
-                string message = Encoding.UTF8.GetString(buffer, 0, result.Count);
-                RhinoApp.WriteLine($"Received: {message}");
+                    string message = Encoding.UTF8.GetString(buffer, 0, result.Count);
+                    RhinoApp.WriteLine($"Received: {message}");
 
-                // Echo the message back to the client
-                byte[] responseBuffer = Encoding.UTF8.GetBytes($"Echo: {message}");
-                await webSocket.SendAsync(new ArraySegment<byte>(responseBuffer), WebSocketMessageType.Text, true, CancellationToken.None);
+                    // Echo the message back to the client
+                    byte[] responseBuffer = Encoding.UTF8.GetBytes($"Echo: {message}");
+                    await webSocket.SendAsync(new ArraySegment<byte>(responseBuffer), WebSocketMessageType.Text, true, CancellationToken.None);
                 }
             }
         }
@@ -191,7 +191,7 @@ namespace gh_quest
         public override GH_Exposure Exposure => GH_Exposure.primary;
 
         //Override the keywords for searching
-        public override IEnumerable<string> Keywords => new List<string>() {"GH Quest"};
+        public override IEnumerable<string> Keywords => new List<string>() { "GH Quest" };
 
         //Set Icons
         protected override System.Drawing.Bitmap Icon => null;
