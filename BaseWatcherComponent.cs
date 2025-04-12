@@ -115,13 +115,13 @@ namespace gh_quest
             var webView = new WebView
             {
                 Url = new Uri("http://localhost:5173/"), // Replace with your desired URL
-                Size = new Eto.Drawing.Size(800, 600)
+                Size = new Eto.Drawing.Size(1200, 1000)
             };
 
             var dialog = new Dialog
             {
                 Title = "Web Panel",
-                ClientSize = new Eto.Drawing.Size(800, 600),
+                ClientSize = new Eto.Drawing.Size(1200, 1000),
                 Content = webView
             };
 
