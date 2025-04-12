@@ -23,6 +23,9 @@ namespace gh_quest
         //public static string Id { get; set; } = "77d216f5-3250-4e42-a196-595b56e798d2";
         List<Brep> _RenderBrepList = new List<Brep>();
 
+        string _TutorialName = "Patterned_Facade_using-Attractors";
+        string _FilePath = "C:\\Users\\Puja.Bhagat\\gh-quest\\GH_Beginner_Course_Pack\\tutorials.json";
+
 
         //************************** CONSTRUCTOR **************************//
         public BaseWatcherComponentPHB()
@@ -85,15 +88,12 @@ namespace gh_quest
             LoadTutorial tutorialLoader = new LoadTutorial();
 
             // string filePath = OSManager.GetFilePath("GH_Beginner_Course_Pack", "tutorials.json");
-            string tutorialName = "Patterned_Facade_using-Attractors";
-            string filePath = "C:\\Users\\Puja.Bhagat\\gh-quest\\GH_Beginner_Course_Pack\\tutorials.json";
-            List<string> tutorialNameList = LoadTutorial.GetAllTutorialNames(filePath);
-            TutorialClass tutorialData = LoadTutorial.DeconstructTutorialJson(filePath, tutorialName);
 
-            RhinoApp.WriteLine(tutorialData._Properties._TargetGraph);
+            List<string> tutorialNameList = LoadTutorial.GetAllTutorialNames(_FilePath);
+            TutorialClass tutorialData = LoadTutorial.DeconstructTutorialJson(_FilePath, _TutorialName);
 
-        
-
+            Rhino.Geometry.Box box = new Rhino.Geometry.Box(Rhino.Geometry.Plane.WorldXY, new Interval(0, 1000), new Interval(0,1000), new Interval(0,1000));
+            _RenderBrepList.Add(box.ToBrep());
 
             RhinoApp.WriteLine("_TutorialNumber" + tutorialData._Properties._TutorialNumber);
             RhinoApp.WriteLine("_Level" + tutorialData._Properties._Level);
@@ -105,7 +105,7 @@ namespace gh_quest
             RhinoApp.WriteLine("_PsuedoCode" + tutorialData._Properties._PsuedoCode);
 
 
-            tutorialLoader.LoadTutorialPanel(tutorialData, tutorialName);
+            tutorialLoader.LoadTutorialPanel(tutorialData, _TutorialName);
 
         }
 
@@ -232,8 +232,7 @@ namespace gh_quest
             {
                 args.Display.DrawBrepShaded(b, material);
             }
-            
-
+        
         }
 
     }

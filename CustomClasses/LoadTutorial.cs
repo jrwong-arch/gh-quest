@@ -8,6 +8,7 @@ using Grasshopper.Kernel;
 using Grasshopper.Kernel.Special;
 using Newtonsoft;
 using Rhino;
+using Rhino.Geometry;
 
 namespace gh_quest.CustomClasses
 {
@@ -104,6 +105,31 @@ namespace gh_quest.CustomClasses
                 this._TutorialPanelGuid = panel.InstanceGuid;
 
                 panel.ExpireSolution(false);
+            }
+        }
+
+        public void LoadTutorialGeometry(string folderPath, string tutorialName)
+        {
+            List<Brep> objectList = new List<Brep>();
+            string filePath = Path.Combine(folderPath, tutorialName);
+
+            if(File.Exists(filePath))
+            {
+                var file3dm = Rhino.FileIO.File3dm.Read(filePath, Rhino.FileIO.File3dm.TableTypeFilter.None, Rhino.FileIO.File3dm.ObjectTypeFilter.Brep);
+                var objectTable = file3dm.Objects;
+
+                foreach(var docObject in objectTable)
+                {
+                    if(docObject.Geometry is Brep)
+                    {
+                        objectList.Add(docObject.Geometry as Brep);
+                    }
+                    else
+                    {
+                        RhinoApp.WriteLine("object is not a brep");
+                    }
+                    
+                }
             }
         }
 
