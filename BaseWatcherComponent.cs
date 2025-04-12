@@ -28,6 +28,8 @@ namespace gh_quest
 
         public TutorialClass _ActiveTutorial { get; set; }
 
+        public string _FilePath = "C:\\Users\\Puja.Bhagat\\gh-quest\\GH_Beginner_Course_Pack\\tutorials.json";
+
 
         //************************** CONSTRUCTOR **************************//
         public BaseWatcherComponent()
@@ -236,6 +238,9 @@ namespace gh_quest
                 doc.ScheduleSolution(100, selectLesson => 
                 {
                     //Load Tutorial Stuff
+                    _ActiveTutorial = LoadTutorial.DeconstructTutorialJson(_FilePath, _TutorialsList[_SelectedTutorialIndex]);
+                    LoadTutorial tutorialLoader = new LoadTutorial();
+                    tutorialLoader.LoadTutorialPanel(_ActiveTutorial, _TutorialsList[_SelectedTutorialIndex]);     
                 });
             };
 
@@ -273,7 +278,7 @@ namespace gh_quest
 
         public void LoadTutorials()
         {
-            _TutorialsList = LoadTutorial.GetAllTutorialNames("C:\\Users\\jonathan.wong\\gh-quest\\GH_Beginner_Course_Pack\\tutorials.json");
+            _TutorialsList = LoadTutorial.GetAllTutorialNames(_FilePath);
         }
 
 
