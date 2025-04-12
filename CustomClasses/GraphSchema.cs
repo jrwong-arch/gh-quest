@@ -2,6 +2,7 @@
 using Grasshopper.Kernel;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.Windows.Forms;
 
 namespace gh_quest
 {
@@ -30,6 +31,11 @@ namespace gh_quest
 
         public GraphComponent(IGH_Component component)
         {
+            if (component == null)
+            {
+                return;
+            }
+
             ComponentData = new GraphComponentData(component);
             NodeData = new GraphComponentNodeData(component);
         }
@@ -37,13 +43,16 @@ namespace gh_quest
 
     public class GraphComponentData
     {
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
         public string Description { get; set; }
         public string RunTime { get; set; }
 
         public GraphComponentData(IGH_Component component)
         {
-            Name = component.Name;
+            if (component.Name != null)
+            {
+                Name = component.Name;
+            }
             Description = component.Description;
             RunTime = component.ProcessorTime.TotalMilliseconds.ToString();
         }
