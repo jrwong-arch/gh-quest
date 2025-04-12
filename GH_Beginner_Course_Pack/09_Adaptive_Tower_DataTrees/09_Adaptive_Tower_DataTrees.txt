@@ -1,4 +1,4 @@
-Title: Interactive Pavilion with Sliders
+Title: Data Trees with Adaptive Tower
 
 Tutorial number: 9
 
