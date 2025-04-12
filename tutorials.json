@@ -1,18 +1,50 @@
 {
-    "tutorialNameOne":
+    "Parametric Box":
     {
         "properties":{
-            "parameterOne": "A",
-            "parameterTwo": "B",
-            "parameterThre": "C"
+            "Tutorial Number": "1",
+            "Level": "🟢 Very Easy",
+            "Learn": "Basic components, number sliders, geometry creation.",
+            "Goal": "Create a scalable box using number sliders and extrusion.",
+            "Resulting Geometry": "01_Parametric_Box.3dm",
+            "Solution Script": "01_Parametric_Box.gh",
+            "Pseudocode": "01_Parametric_Box.png"
         }
     },
-    "tutorialNameTwo":
+    "Parametric Tower Massing":
     {
         "properties":{
-            "parameterOne": "A",
-            "parameterTwo": "B",
-            "parameterThre": "C"
+            "Tutorial Number": "2",
+            "Level": "🟢 Easy",
+            "Learn": "Series, move, extrude, stack logic.",
+            "Goal": "Create a tower by stacking floor plates with adjustable height and count.",
+            "Resulting Geometry": "02_Parametric_Tower_Massing.3dm",
+            "Solution Script": "02_Parametric_Tower_Massing.gh",
+            "Pseudocode": "02_Parametric_Tower_Massing.png"       
+        }
+    },
+    "Adaptive Facade with Panels":
+    {
+        "properties":{
+            "Tutorial Number": "3",
+            "Level": "🟡 Medium",
+            "Learn": "Divide surface, vector math, rotation.",
+            "Goal": "Create a grid of panels that rotate based on sun vector using surface normals.",
+            "Resulting Geometry": "03_Adaptive_Facade_Panels.3dm",
+            "Solution Script": "03_Adaptive_Facade_Panels.gh",
+            "Pseudocode": "03_Adaptive_Facade_Panels.png"       
+        }
+    },
+    "Patterned Facade using Attractors":
+    {
+        "properties":{
+            "Tutorial Number": "4",
+            "Level": "🟡 Medium",
+            "Learn": "Distance-based control, circles, subtraction.",
+            "Goal": "Vary hole sizes in facade panels based on distance to an attractor point.",
+            "Resulting Geometry": "04_Attractor_Based_Pattern.3dm",
+            "Solution Script": "04_Attractor_Based_Pattern.gh",
+            "Pseudocode": "04_Attractor_Based_Pattern.png"       
         }
     }
 }
