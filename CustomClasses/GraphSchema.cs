@@ -14,6 +14,11 @@ namespace gh_quest
         {
             foreach (IGH_Component component in ScriptCrawler.GetDocumentComponents(doc))
             {
+                if (component == null)
+                {
+                    continue;
+                }
+
                 Document.Add(component.InstanceGuid.ToString(), new GraphComponent(component));
             }
         }
