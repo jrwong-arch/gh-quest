@@ -112,7 +112,7 @@ namespace gh_quest.CustomClasses
         {
             List<Brep> objectList = new List<Brep>();
             string filePath = Path.Combine(folderPath, tutorialFolder, tutorialName);
-            RhinoApp.WriteLine(filePath);
+            //RhinoApp.WriteLine(filePath);
 
             if(File.Exists(filePath))
             {

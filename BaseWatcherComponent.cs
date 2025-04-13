@@ -28,7 +28,10 @@ namespace gh_quest
 
         public TutorialClass _ActiveTutorial { get; set; }
 
-        public string _FilePath = "/Users/ammarnaqvi/Code/Ammar/gh-quest/GH_Beginner_Course_Pack/tutorials.json";
+        public List<Brep> _TutorialRenderObjList = new List<Brep>();
+
+        public string _FilePath = "C:\\Users\\Puja.Bhagat\\gh-quest\\GH_Beginner_Course_Pack\\tutorials.json";
+        public string _FolderPath = "C:\\Users\\Puja.Bhagat\\gh-quest\\GH_Beginner_Course_Pack";
 
 
         //************************** CONSTRUCTOR **************************//
@@ -60,12 +63,17 @@ namespace gh_quest
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
+            int inputIndex = pManager.AddGenericParameter("", "", "", GH_ParamAccess.item);
+            pManager[inputIndex].Optional = true;
+            pManager[inputIndex].Locked = true;
+
             LoadTutorials();
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-
+            int outputIndex = pManager.AddGenericParameter("", "", "", GH_ParamAccess.list);
+            pManager[outputIndex].Locked = true;
         }
 
 
@@ -82,7 +90,10 @@ namespace gh_quest
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-
+            //Rhino.Geometry.Box box = new Rhino.Geometry.Box(Rhino.Geometry.Plane.WorldXY, new Interval(0, 1000), new Interval(0,1000), new Interval(0,1000));
+            //_TutorialRenderObjList.Add(box.ToBrep());
+            //RhinoApp.WriteLine(_TutorialRenderObjList.Count().ToString());
+            DA.SetDataList(0, _TutorialRenderObjList);
         }
 
 
@@ -236,7 +247,11 @@ namespace gh_quest
                     //Load Tutorial Stuff
                     _ActiveTutorial = LoadTutorial.DeconstructTutorialJson(_FilePath, _TutorialsList[_SelectedTutorialIndex]);
                     LoadTutorial tutorialLoader = new LoadTutorial();
-                    tutorialLoader.LoadTutorialPanel(_ActiveTutorial, _TutorialsList[_SelectedTutorialIndex]);
+                    tutorialLoader.LoadTutorialPanel(_ActiveTutorial, _TutorialsList[_SelectedTutorialIndex]);   
+
+                    //Get tutorial geometry
+                    _TutorialRenderObjList = tutorialLoader.LoadTutorialGeometry(_FolderPath, _TutorialsList[_SelectedTutorialIndex], _ActiveTutorial._Properties._ResultingGeo);
+                    ExpireSolution(false);
                 });
             };
 
@@ -254,6 +269,7 @@ namespace gh_quest
                 doc.ScheduleSolution(100, selectLesson =>
                 {
                     _SelectedTutorialIndex = selectedIndex;
+                    ExpireSolution(false);
                 });
             };
 
@@ -290,6 +306,22 @@ namespace gh_quest
         //Set Icons
         protected override System.Drawing.Bitmap Icon => null;
         public override Guid ComponentGuid => new Guid(BaseWatcherComponent.Id);
+
+
+        public override void DrawViewportMeshes(IGH_PreviewArgs args)
+        {
+            base.DrawViewportMeshes(args);
+
+            args.Display.EnableClippingPlanes(true);
+            Rhino.Display.DisplayMaterial materialShade = new Rhino.Display.DisplayMaterial{Diffuse = Color.LightCyan};
+
+            foreach(Brep b in _TutorialRenderObjList)
+            {
+                args.Display.DrawBrepShaded(b, materialShade);
+                args.Display.DrawBrepWires(b, Color.Black);
+            }
+        
+        }
 
     }
 }
