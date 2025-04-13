@@ -9,9 +9,7 @@
       "program": "",
       "osx": {
         "program": "/Applications/Rhino 8.app/Contents/MacOS/Rhinoceros",
-        "args": [
-          "-runscript=_Grasshopper"
-        ]
+        "args": ["-runscript=_Grasshopper"]
       },
       "windows": {
         "program": "C:\\Program Files\\Rhino 8\\System\\Rhino.exe",
@@ -48,9 +46,7 @@
       "request": "launch",
       "preLaunchTask": "build",
       "program": "/Applications/Rhino 7.app/Contents/MacOS/Rhinoceros",
-      "args": [
-        "-runscript=_Grasshopper"
-      ],
+      "args": ["-runscript=_Grasshopper"],
       "env": {
         // "RHINO_PLUGIN_PATH": "${workspaceFolder}/bin/Debug/net48/gh-quest.rhp",
         "GRASSHOPPER_PLUGINS": "${workspaceFolder}/bin/Debug/net48/gh-quest.gha"
@@ -66,11 +62,10 @@
       "program": "C:\\Program Files\\Rhino 7\\System\\Rhino.exe",
       "targetArchitecture": "x86_64",
       "args": "/runscript=\"_Grasshopper\"",
-      "env": {
-      },
+      "env": {},
       "cwd": "${workspaceFolder}",
       "console": "internalConsole"
-    },
+    }
   ],
   "compounds": []
 }
