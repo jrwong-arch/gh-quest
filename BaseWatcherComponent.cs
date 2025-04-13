@@ -32,6 +32,7 @@ namespace gh_quest
 
         public string _FilePath = "C:\\Users\\Puja.Bhagat\\gh-quest\\GH_Beginner_Course_Pack\\tutorials.json";
         public string _FolderPath = "C:\\Users\\Puja.Bhagat\\gh-quest\\GH_Beginner_Course_Pack";
+        public string _IconFilePath = "C:\\Users\\jonathan.wong\\gh-quest\\Icon\\GH_Quest_Icon_Transparent_24.png";
 
 
         //************************** CONSTRUCTOR **************************//
@@ -326,7 +327,14 @@ namespace gh_quest
         public override IEnumerable<string> Keywords => new List<string>() { "GH Quest" };
 
         //Set Icons
-        protected override System.Drawing.Bitmap Icon => null;
+        protected override System.Drawing.Bitmap Icon
+        {
+            get
+            {
+                return new System.Drawing.Bitmap(_IconFilePath);
+            }
+        }
+
         public override Guid ComponentGuid => new Guid(BaseWatcherComponent.Id);
 
 
