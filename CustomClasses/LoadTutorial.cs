@@ -108,10 +108,10 @@ namespace gh_quest.CustomClasses
             }
         }
 
-        public List<Brep> LoadTutorialGeometry(string folderPath, string tutorialName)
+        public List<Brep> LoadTutorialGeometry(string folderPath, string tutorialFolder, string tutorialName)
         {
             List<Brep> objectList = new List<Brep>();
-            string filePath = Path.Combine(folderPath, tutorialName, tutorialName + ".3dm");
+            string filePath = Path.Combine(folderPath, tutorialFolder, tutorialName);
             RhinoApp.WriteLine(filePath);
 
             if(File.Exists(filePath))

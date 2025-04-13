@@ -82,9 +82,10 @@ namespace gh_quest
                 }
 
                 //Colors and Fonts
-                Font buttonFont = new Font(GH_FontServer.Standard.FontFamily, GH_FontServer.Standard.Size / GH_GraphicsUtil.UiScale, FontStyle.Regular);
+                Font buttonFont = new System.Drawing.Font("Montserrat Light", 6, FontStyle.Regular);
+                buttonFont = new Font(buttonFont.FontFamily, buttonFont.Size / GH_GraphicsUtil.UiScale, FontStyle.Regular);
 
-                Font titleFont = new System.Drawing.Font(GH_FontServer.Large.Name, 12, FontStyle.Bold);
+                Font titleFont = new System.Drawing.Font("Montserrat Bold", 12, FontStyle.Bold);
                 titleFont = new Font(titleFont.FontFamily, titleFont.Size / GH_GraphicsUtil.UiScale, FontStyle.Bold);
 
                 Brush normalColor = new SolidBrush(Color.FromArgb(255,60,60,60));
