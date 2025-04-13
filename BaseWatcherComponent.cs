@@ -123,38 +123,60 @@ namespace gh_quest
             dialog.ShowModal();
         }
 
+        private HttpListener _httpListener; // Declare as a class-level variable
+        private bool _isServerRunning = false; // Flag to track server state
+
         // Method to start a WebSocket server
         public async void StartWebSocketServer()
         {
-            RhinoApp.WriteLine("Starting WebSocket server...");
-            HttpListener httpListener = new HttpListener();
-            httpListener.Prefixes.Add("http://localhost:8181/ws/");
-            httpListener.Start();
-
-            RhinoApp.WriteLine("WebSocket server started at ws://localhost:8181/ws/");
-
-            while (true)
+            if (_isServerRunning)
             {
-                HttpListenerContext context = await httpListener.GetContextAsync();
+                RhinoApp.WriteLine("WebSocket server is already running.");
+                return;
+            }
+            else
+            {
+                RhinoApp.WriteLine("Starting WebSocket server...");
+                _httpListener = new HttpListener();
+                _httpListener.Prefixes.Add("http://localhost:8181/ws/");
+                _httpListener.Start();
+                _isServerRunning = true;
 
-                if (context.Request.IsWebSocketRequest)
+                RhinoApp.WriteLine("WebSocket server started at ws://localhost:8181/ws/");
+            }
+            try
+            {
+                while (true)
                 {
-                    var response = context.Response;
-                    response.AddHeader("Access-Control-Allow-Origin", "*");
+                    HttpListenerContext context = await _httpListener.GetContextAsync();
 
-                    HttpListenerWebSocketContext webSocketContext = await context.AcceptWebSocketAsync(null);
-                    WebSocket webSocket = webSocketContext.WebSocket;
+                    if (context.Request.IsWebSocketRequest)
+                    {
+                        HttpListenerWebSocketContext webSocketContext = await context.AcceptWebSocketAsync(null);
+                        WebSocket webSocket = webSocketContext.WebSocket;
 
-                    RhinoApp.WriteLine("Client connected!");
+                        RhinoApp.WriteLine("Client connected!");
 
-                    await HandleWebSocketConnection(webSocket);
-                }
-                else
-                {
-                    context.Response.StatusCode = 400;
-                    context.Response.Close();
+                        await HandleWebSocketConnection(webSocket);
+                    }
+                    else
+                    {
+                        context.Response.StatusCode = 400;
+                        context.Response.Close();
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                RhinoApp.WriteLine($"Error starting WebSocket server: {ex.Message}");
+            }
+            finally
+            {
+                _isServerRunning = false;
+                _httpListener?.Stop();
+                _httpListener = null;
+            }
+
         }
 
         public GH_Document GetActiveDocument()
